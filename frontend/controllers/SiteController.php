@@ -12,6 +12,7 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use yii\helpers\Json;
 
 /**
  * Site controller
@@ -212,5 +213,16 @@ class SiteController extends Controller
         return $this->render('resetPassword', [
             'model' => $model,
         ]);
+    }
+
+    public function actionLoginView(){
+        $data = [];
+        if(Yii::$app->request->isAjax){
+            if(Yii::$app->user->isGuest){
+                $data['backUrl'] = Yii::$app->request->post('backurl');
+                $data['loginView'] =  $this->renderPartial('@frontend/views/common/login');
+                echo Json::encode($data);
+            }
+        }
     }
 }

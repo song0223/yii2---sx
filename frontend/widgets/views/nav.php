@@ -6,7 +6,8 @@
  * Time: 13:55
  */
 use yii\bootstrap\NavBar;
-use \yii\bootstrap\Nav;
+use yii\bootstrap\Nav;
+use yii\web\Controller;
 
 $controller = Yii::$app->controller->id;
 $action = Yii::$app->controller->action->id;
@@ -49,6 +50,7 @@ $contributeActive = ($controller == 'contribute') ? true : false;
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('app','Signup'), 'url'=>'#', 'linkOptions' =>['id'=>'signup-class']];
         $menuItems[] = ['label' => Yii::t('app','Login'), 'url' => '#', 'linkOptions' =>['id'=>'login-class']];
+        //echo Yii::$app->runAction('site/login-view');
     } else {
 //        $menuItems[] = '<li>'
 //            . Html::beginForm(['/site/logout'], 'post')
