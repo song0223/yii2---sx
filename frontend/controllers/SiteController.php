@@ -13,6 +13,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\helpers\Json;
+use yii\web\Response;
 
 /**
  * Site controller
@@ -91,6 +92,7 @@ class SiteController extends Controller
         }
 
         $model = new LoginForm();
+        $this->performAjaxValidation($model);
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
@@ -153,6 +155,7 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
+
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
@@ -217,12 +220,35 @@ class SiteController extends Controller
 
     public function actionLoginView(){
         $data = [];
-        if(Yii::$app->request->isAjax){
-            if(Yii::$app->user->isGuest){
-                $data['backUrl'] = Yii::$app->request->post('backurl');
-                $data['loginView'] =  $this->renderPartial('@frontend/views/common/login');
-                echo Json::encode($data);
-            }
+        $userModel = new LoginForm();
+        return $this->renderPartial('@frontend/views/common/login',[
+            'model' => $userModel
+        ]);
+//        if(Yii::$app->request->isAjax){
+//            if(Yii::$app->user->isGuest){
+//                $data['backUrl'] = Yii::$app->request->post('backurl');
+//                $data['loginView'] =  $this->renderPartial('@frontend/views/common/login',[
+//                    'model' => $userModel
+//                ]);
+//                echo Json::encode($data);
+//            }
+//        }
+
+    }
+
+    /**
+     * Performs ajax validation.
+     * @param Model $model
+     * @throws \yii\base\ExitException
+     */
+    protected function performAjaxValidation($model)
+    {
+        if (Yii::$app->request->isAjax && $model->load(Yii::$app->request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            echo json_encode(\yii\widgets\ActiveForm::validate($model));
+            Yii::$app->end();
         }
     }
+
+
 }

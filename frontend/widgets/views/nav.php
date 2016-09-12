@@ -50,7 +50,7 @@ $contributeActive = ($controller == 'contribute') ? true : false;
     if (Yii::$app->user->isGuest) {
         $menuItems[] = ['label' => Yii::t('app','Signup'), 'url'=>'#', 'linkOptions' =>['id'=>'signup-class']];
         $menuItems[] = ['label' => Yii::t('app','Login'), 'url' => '#', 'linkOptions' =>['id'=>'login-class']];
-        //echo Yii::$app->runAction('site/login-view');
+        echo Yii::$app->runAction('site/login-view');
     } else {
 //        $menuItems[] = '<li>'
 //            . Html::beginForm(['/site/logout'], 'post')

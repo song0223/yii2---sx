@@ -49,7 +49,6 @@ ul li {
     padding:9px 9px 9px 9px;
     margin-bottom:20px;
     display:block;
-    width:94%
 }
 .login-form .forgot,.login-form .login,.login-form .reg,.signup-form .forgot,.signup-form .login,.signup-form .reg,.forgot-form .forgot,.forgot-form .login,.forgot-form .reg {
     width:302px;
@@ -157,19 +156,19 @@ ul li {
     padding:5px
 }
 #signup-modal,#login-modal,#forgetform,.modal-login {
+    display: none;
     background-color: #ffffff;
     width:380px;
-    padding:0 40px 20px;
+    line-height: 1;
+    padding:0 40px 10px;
     border-radius: 5px;
-    margin-left:-210px;
     overflow:hidden;
-    margin-bottom:40px;
     box-shadow: 0 0 10px #666;
     margin-top:-267px;
     z-index: 9999;
     position:fixed;
     top:45%;
-    left:50%;
+    left:38%;
 }
 #signup-modal a:hover,#login-modal a:hover,#forgetform a:hover,.modal a:hover {
     text-decoration:none
@@ -499,4 +498,5 @@ a.reg-btn:focus {
     background: #000;
     opacity: 0.4;
     filter: alpha(opacity=40);
+    display: none;
 }

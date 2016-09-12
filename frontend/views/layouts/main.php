@@ -11,7 +11,7 @@ use frontend\assets\BowerAsset;
 
 AppAsset::register($this);
 BowerAsset::register($this);
-AppAsset::addScript($this,Yii::$app->request->baseUrl."/js/loginAjax.js");//在jq后面添加js文件
+//AppAsset::addScript($this,Yii::$app->request->baseUrl."/js/loginAjax.js");//在jq后面添加js文件
 ?>
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
@@ -25,7 +25,6 @@ AppAsset::addScript($this,Yii::$app->request->baseUrl."/js/loginAjax.js");//在j
 </head>
 <body>
 <?php $this->beginBody() ?>
-
 <div class="wrap">
     <?= frontend\widgets\Nav::widget();?>
     <div class="container">

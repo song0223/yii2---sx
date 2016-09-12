@@ -13,7 +13,7 @@ $(function () {
                 data : {backurl : url},
                 success:function(data){
                     if(data){
-                        $('#spig').append(data.loginView);
+                        $('body').append(data.loginView);
                         $('.theme-popover-mask').fadeIn(100);
                         $('#login-modal').slideDown(250);
                     }

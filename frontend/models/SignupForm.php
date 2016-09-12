@@ -66,6 +66,12 @@ class SignupForm extends Model
         return $user->save() ? $user : null;
     }
 
+    public function scenarios(){
+        $parent = parent::scenarios();
+        $parent['login'] = ['username','password'];
+        $parent['create'] = ['username','password','email','role','staut','type'];
+        return $parent;
+    }
 
     public function attributeLabels(){
         return [
