@@ -1,45 +1,4 @@
 
-
-
-hr {
-    display:block;
-    height:1px;
-    border:0;
-    border-top:1px solid #ddd;
-    margin:20px 0;
-    padding:0
-}
-input,button {
-    border:1px solid #DDD;
-    font-size:13px;
-    margin:0;
-    height:auto
-}
-h1,h2,h3,h4,h5,h6 {
-    margin:0;
-    padding:0;
-    font-weight:normal;
-    color:#6b7985;
-    line-height:1
-}
-h1 {
-    font-size:40px
-}
-h2 {
-    font-size:30px
-}
-h3 {
-    font-size:25px
-}
-h4 {
-    font-size:20px
-}
-h5 {
-    font-size:15px
-}
-h6 {
-    font-size:13px
-}
 ul {
     list-style:none;
     margin:0;
@@ -76,38 +35,7 @@ ul li {
     text-decoration:none;
     color:#ffffff
 }
-.button-grey {
-    display:block;
-    float:left;
-    padding:5px 0;
-    width:80px;
-    color:#fff;
-    background:#ccc;
-    text-align:center;
-    cursor:pointer
-}
-.button-grey:hover {
-    background:#aaa;
-    text-decoration:none
-}
-.buttons {
-    width:170px;
-    margin:0 auto
-}
-.check {
-    float:left;
-    display:block;
-    width:15px;
-    height:15px;
-    margin:0 10px 0 0;
-    background:url(../img/v2/check.png) no-repeat
-}
-.check:hover {
-    background:url(../img/v2/check-hover.png) no-repeat
-}
-.check.checked {
-    background:url(../img/v2/checked.png) no-repeat
-}
+
 .login-form .form-arrow,.signup-form .form-arrow,.forgot-form .form-arrow {
     display:block;
     width:30px;
@@ -229,7 +157,6 @@ ul li {
     padding:5px
 }
 #signup-modal,#login-modal,#forgetform,.modal-login {
-    display: none;
     background-color: #ffffff;
     width:380px;
     padding:0 40px 20px;
@@ -572,5 +499,4 @@ a.reg-btn:focus {
     background: #000;
     opacity: 0.4;
     filter: alpha(opacity=40);
-    display: none;
 }

@@ -14,11 +14,8 @@ $(function () {
                 success:function(data){
                     if(data){
                         $('body').append(data.loginView);
-                        $(document).on('#login-modal',function(){
-                            alert(1);
-                        });
                         $('.theme-popover-mask').fadeIn(100);
-                        $('#login-modal').slideDown(250);
+                        $('#login-modal').slideDown(200);
                     }
                 },
                 error: function () {

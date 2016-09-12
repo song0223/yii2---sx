@@ -49,7 +49,6 @@ AppAsset::addScript($this,Yii::$app->request->baseUrl."/js/loginAjax.js");//在j
     <div id="message">正在加载中……</div>
     <div id="mumu" class="mumu"></div>
 </div>
-
 <!--小人end*-->
 <?php $this->endBody() ?>
 </body>

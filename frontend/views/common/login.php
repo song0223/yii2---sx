@@ -18,7 +18,7 @@ $(function () {
 ?>
 
 <?=Html::cssFile('@web/resources/sign/static/css/ui2.css')?>
-<div class="modal-login" id="login-modal"> <a class="close-login">×</a>
+<div class="modal-login" id="login-modal" style="display:none"> <a class="close-login">×</a>
     <h1>登录</h1>
     <p>社交帐号登录：</p><br />
     <ul class="login-bind-tp">
@@ -53,12 +53,8 @@ $(function () {
         </ul>
     </form>
 </div>
-<div class="theme-popover-mask"></div>
+<div class="theme-popover-mask" style="display:none"></div>
 <script>
-    $(document).ready(function(){
-        $('.theme-popover-mask').fadeIn(100);
-        $('#login-modal').slideDown(250);
-    });
     $('#login-class').click(function(){
         $('.theme-popover-mask').fadeIn(100);
         $('#login-modal').slideDown(250);
