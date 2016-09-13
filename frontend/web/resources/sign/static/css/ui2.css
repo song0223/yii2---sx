@@ -161,6 +161,7 @@ ul li {
     width:380px;
     line-height: 1;
     padding:0 40px 10px;
+    font-size:14px;
     border-radius: 5px;
     overflow:hidden;
     box-shadow: 0 0 10px #666;
@@ -173,6 +174,13 @@ ul li {
 #signup-modal a:hover,#login-modal a:hover,#forgetform a:hover,.modal a:hover {
     text-decoration:none
 }
+h1 span{
+    padding: 0px 20px 13px 16px;
+    cursor:pointer
+}
+h1 .avtive{
+    border-bottom: 1px solid #5cb85c;
+}
 .modal h1,#forgetform h1,#signup-modal h1,#login-modal h1 {
     margin:0 -40px;
     background:#EEE;
@@ -182,7 +190,6 @@ ul li {
     padding:13px 40px;
     border-top-left-radius:6px;
     border-top-right-radius:6px;
-    text-align:center;
     margin-bottom:30px
 }
 .modal .close-login,#signup-modal .close-login,#login-modal .close-login,#forgetform .close-login {

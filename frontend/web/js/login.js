@@ -1,0 +1,34 @@
+/**
+ * Created by Administrator on 2016/9/13.
+ */
+$(function () {
+    $('#login-class').click(function(){
+        $('.theme-popover-mask').fadeIn(100);
+        $('#login-modal').slideDown(250);
+        $('.dr').addClass('avtive');
+    });
+    $('#signup-class').click(function(){
+        $('.theme-popover-mask').fadeIn(100);
+        $('#signup-modal').slideDown(250);
+        $('.zhuc').addClass('avtive');
+    });
+    $('.close-login').click(function(){
+        $('.theme-popover-mask').fadeOut(100);
+        $('#login-modal').slideUp(200);
+        $('#signup-modal').slideUp(200);
+        $('.zhuc').removeClass('avtive');
+        $('.dr').removeClass('avtive');
+    });
+    $('.zhuc').click(function(){
+        $('#login-modal').hide();
+        $('#signup-modal').show();
+        $('.zhuc').addClass('avtive');
+        $('.dr').removeClass('avtive');
+    });
+    $('.dr').click(function(){
+        $('#login-modal').show();
+        $('#signup-modal').hide();
+        $('.zhuc').removeClass('avtive');
+        $('.dr').addClass('avtive');
+    });
+});

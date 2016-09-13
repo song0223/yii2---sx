@@ -12,7 +12,7 @@
                 'About' => '关于',
                 'Contact' => '联系方式',
                 'Signup' => '注册',
-                'Login' => '登入',
+                'Login' => '登录',
                 'rememberMe' => '记住我',
                 'resetPwd' => '忘记密码？',
                 'errorPwd' => '账户或者密码错误',

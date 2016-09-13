@@ -16,6 +16,9 @@ $(function () {
                         $('body').append(data.loginView);
                         $('.theme-popover-mask').fadeIn(100);
                         $('#login-modal').slideDown(250);
+                        $(':input').on('blur',function(){
+                                //alert(1);
+                        });
                     }
                 },
                 error: function () {

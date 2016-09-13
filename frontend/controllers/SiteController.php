@@ -13,6 +13,7 @@ use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
 use yii\helpers\Json;
+use yii\web\ForbiddenHttpException;
 use yii\web\Response;
 
 /**
@@ -96,9 +97,10 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            return $this->render('login', [
-                'model' => $model,
-            ]);
+            throw new ForbiddenHttpException('无法访问。');
+//            return $this->render('login', [
+//                'model' => $model,
+//            ]);
         }
     }
 
@@ -155,7 +157,7 @@ class SiteController extends Controller
     public function actionSignup()
     {
         $model = new SignupForm();
-
+        $this->performAjaxValidation($model);
         if ($model->load(Yii::$app->request->post())) {
             if ($user = $model->signup()) {
                 if (Yii::$app->getUser()->login($user)) {
@@ -163,10 +165,10 @@ class SiteController extends Controller
                 }
             }
         }
-
-        return $this->render('signup', [
-            'model' => $model,
-        ]);
+        throw new ForbiddenHttpException('无法访问。');
+//        return $this->render('signup', [
+//            'model' => $model,
+//        ]);
     }
 
     /**
@@ -219,10 +221,11 @@ class SiteController extends Controller
     }
 
     public function actionLoginView(){
-        $data = [];
         $userModel = new LoginForm();
+        $sigModel = new SignupForm();
         return $this->renderPartial('@frontend/views/common/login',[
-            'model' => $userModel
+            'model' => $userModel,
+            'sigModel' => $sigModel
         ]);
 //        if(Yii::$app->request->isAjax){
 //            if(Yii::$app->user->isGuest){
