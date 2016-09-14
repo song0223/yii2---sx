@@ -12,7 +12,7 @@ body {
 }
 
 .wrap > .container {
-    padding: 70px 15px 20px;
+
 }
 
 .footer {
@@ -123,4 +123,30 @@ a.desc:after {
 
 .navbar a, .navbar-default .navbar-nav > li > a {
     color: #333;
+}
+
+.title-info {
+    color: #aaa;
+    font-size: 12px;
+}
+.text-right1{
+    float: right;
+}
+.title-info a {
+    color: #666;
+}
+.title-info .node {
+    padding: 1px 5px;
+    text-decoration: none;
+    background-color: #dedbdb;
+}
+.tweet .active .fa, .title-info .active .fa, .filter .active, .red {
+    color: #EB5424;
+}
+.opts a {
+    text-decoration: none;
+    margin-right: 5px;
+}
+.panel-body a{
+    text-decoration: none;
 }

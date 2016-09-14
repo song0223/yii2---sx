@@ -7,7 +7,7 @@
  */
 
         return [
-                'WebTitle' => '糗事最右',
+                'WebTitle' => 'sxxxxxxxxxxx',
                 'Home' => '主页',
                 'About' => '关于',
                 'Contact' => '联系方式',
@@ -29,13 +29,13 @@
                 'memberLogout' => '退出',
 
                 //公共布局
-                'mainHot' => '热门',
-                'mainVideo' => '视频',
-                'mainText' => '文字',
-                'mainHistory' => '穿越',
-                'mainPic' => '糗图',
-                'mainTextnew' => '新鲜',
-                'mainContribute' => '投稿',
+                'mainPHP' => 'PHP',
+                'mainDIVCSS' => 'DIV+CSS',
+                'mainJS' => 'JavaScript',
+                'mainMySql' => 'MySql',
+                'mainLinux' => 'Linux',
+                'mainTextnew' => '大杂烩',
+                'mainContribute' => '分享',
                 'mainPlaceholder' => '搜索...',
                 'mainDataContent' => '请输入要搜索的关键词！',
         ];

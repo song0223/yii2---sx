@@ -28,11 +28,11 @@ $contributeActive = ($controller == 'contribute') ? true : false;
     echo Nav::widget([
         'options' => ['class' => 'nav navbar-nav'],
         'items' => [
-            ['label' => Yii::t('app','mainHot'), 'url' => ['/hot/hot'],'active' => $hotActive],
-            ['label' => Yii::t('app','mainVideo'),'url' => ['/video/about'],'active' => $videoActive],
-            ['label' => Yii::t('app','mainText'),'url' => ['/text/about'],'active' => $textActive],
-            ['label' => Yii::t('app','mainHistory'),'url' => ['/history/about'],'active' => $historyActive],
-            ['label' => Yii::t('app','mainPic'),'url' => ['/pic/about'],'active' => $picActive],
+            ['label' => Yii::t('app','mainPHP'), 'url' => ['/hot/index'],'active' => $hotActive],
+            ['label' => Yii::t('app','mainDIVCSS'),'url' => ['/video/about'],'active' => $videoActive],
+            ['label' => Yii::t('app','mainJS'),'url' => ['/text/about'],'active' => $textActive],
+            ['label' => Yii::t('app','mainMySql'),'url' => ['/history/about'],'active' => $historyActive],
+            ['label' => Yii::t('app','mainLinux'),'url' => ['/pic/about'],'active' => $picActive],
             ['label' => Yii::t('app','mainTextnew'),'url' => ['/textnew/about'],'active' => $textnewActive],
             ['label' => Yii::t('app','mainContribute'),'url' => ['/contribute/about'],'active' => $contributeActive],
         ],

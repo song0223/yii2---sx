@@ -17,7 +17,7 @@ class BowerAsset extends AssetBundle
     public $baseUrl = '@bower';
 
     public $css = [
-        //'font-awesome/css/font-awesome.min.css',
+        'font-awesome/css/font-awesome.min.css',
         //'highlightjs/styles/monokai_sublime.css',
         'pace/themes/green/pace-theme-minimal.css',
     ];
