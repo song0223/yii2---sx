@@ -132,7 +132,7 @@ a.desc:after {
 .text-right1{
     float: right;
 }
-.title-info a {
+.title-info a ,.tag-cloud a{
     color: #666;
 }
 .title-info .node {
@@ -156,4 +156,7 @@ a.desc:after {
 }
 .list-group-item{
     border: none;
+}
+.panel-body pre {
+    padding: 0;
 }

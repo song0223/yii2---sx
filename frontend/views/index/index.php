@@ -6,6 +6,7 @@ use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 use yii\helpers\Url;
+use common\models\sxhelps\SxHelps;
 
 $this->title = Yii::t('app','WebTitle');
 //$this->params['breadcrumbs'][] = $this->title;
@@ -20,7 +21,7 @@ $this->title = Yii::t('app','WebTitle');
         <?php foreach($topics as $key => $value): ?>
         <div class="panel panel-default">
             <div class="panel-heading">
-                标题
+                <?=$value['title']?>
             </div>
             <div class="panel-body tag-cloud">
                 <?= Html::a(HtmlPurifier::process(Markdown::process($value['excerpt'], 'gfm')),Url::to(['post/default/view','id'=>$value['id']])); ?>
@@ -29,7 +30,7 @@ $this->title = Yii::t('app','WebTitle');
                 <span class="title-info opts">
                     <?php
                         echo Html::a(
-                                Html::tag('i', '', ['class' => 'fa fa-thumbs-o-up']) . ' ' . Html::tag('span', 1) . ' 个赞',
+                                Html::tag('i', '', ['class' => 'fa fa-thumbs-o-up']) . ' ' . Html::tag('span', $value['like_count']) . ' 个赞',
                                 '#',
                                 [
                                     'data-do' => 'like',
@@ -82,10 +83,10 @@ $this->title = Yii::t('app','WebTitle');
                 </span>
                 <span class="title-info text-right1">
                     <?php
-                        echo Html::a('新手提问', '#' , ['class' => 'node']),'•';
-                        echo Html::a('zml1234', '#' , ['class' => '']),'•';
+                        echo Html::a($value['postMeta']['name'], '#' , ['class' => 'node']),'•';
+                        echo Html::a($value['author'], '#' , ['class' => '']),'•';
                         echo Html::tag('span',
-                                '最后由' . Html::a('forecho','/member/forecho',[]) .'于 5天前 回复'
+                                '最后由' . Html::a($value['last_comment_name'],'/member/forecho',[]) .'于 '.SxHelps::get_timejq($value['last_comment_time']).' 回复'
                         );
                     ?>
                 </span>

@@ -21,6 +21,8 @@ use yii\db\ActiveRecord;
  * @property string $image
  * @property string $content
  * @property string $tags
+ * @property string $last_comment_time
+ * @property string $last_comment_name
  * @property string $view_count
  * @property string $comment_count
  * @property string $favorite_count
@@ -79,11 +81,11 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_meta_id', 'user_id', 'view_count', 'comment_count', 'favorite_count', 'like_count', 'thanks_count', 'hate_count', 'status', 'order', 'created_at', 'updated_at', 'type'], 'integer'],
+            [['post_meta_id', 'user_id', 'view_count', 'comment_count', 'favorite_count', 'like_count', 'thanks_count', 'hate_count', 'status', 'order', 'created_at', 'updated_at','last_comment_time'], 'integer'],
             [['content'], 'required'],
-            [['content'], 'string'],
+            [['content','type'], 'string'],
             [['title'], 'string', 'max' => 150],
-            [['author'], 'string', 'max' => 100],
+            [['author','last_comment_time'], 'string', 'max' => 100],
             [['excerpt'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 200],
             [['tags'],'safe']
@@ -106,6 +108,8 @@ class Post extends \yii\db\ActiveRecord
             'image' => Yii::t('app', '封面图片'),
             'content' => Yii::t('app', '内容'),
             'tags' => Yii::t('app', '标签 用英文逗号隔开'),
+            'last_comment_time' => Yii::t('app', '最后回复时间'),
+            'last_comment_name' => Yii::t('app', '最后回复人'),
             'view_count' => Yii::t('app', '查看数'),
             'comment_count' => Yii::t('app', '评论数'),
             'favorite_count' => Yii::t('app', '收藏数'),
@@ -152,13 +156,22 @@ class Post extends \yii\db\ActiveRecord
         }
     }
 
-    public function beforeSave($insert)
-    {
-        if (parent::beforeSave($insert)) {
-            //$this->updateAttributes(['tags'=>'1']);
-            return true;
-        } else {
-            return false;
-        }
+    /*
+     *  最后回复更新
+     *
+     */
+    public function finalReplyUpdate($username = ''){
+            $this->setAttributes([
+                'last_comment_time' => time(),
+                'last_comment_name' => $username
+            ]);
+        return $this->save();
+    }
+
+    /*
+     * 获取板块
+     */
+    public function getPostMeta(){
+        return $this->hasOne(PostMeta::className(),['id' => 'post_meta_id']);
     }
 }

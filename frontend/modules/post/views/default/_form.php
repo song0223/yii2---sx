@@ -49,7 +49,7 @@ $this->registerJs("
         <?= Select2::widget([
             'id' => 'topic-tags',
             'name' => 'Topic[tags]',
-            'value' => explode(',',$model->tags), // initial value
+            'value' => $type?explode(',',$model->tags):[], // initial value
             'data' => $type?PostTag::getTagsByMeta($model->post_meta_id,$type):[],
             'maintainOrder' => true,
             'toggleAllSettings' => [

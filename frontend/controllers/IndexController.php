@@ -69,7 +69,8 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        $topics = Post::find()->where(['status' => 1])->all();
+        $topics = Post::find()->with('postMeta')->where(['status' => 1])->limit(10)->orderBy(['updated_at'=>SORT_DESC])->asArray()->all();
+        //$sql = "SELECT p.*,m.id mid FROM `qrqy_post` p LEFT JOIN `qrqy_post_meta` m on p.post_meta_id = m.id WHERE p.status=1 ORDER BY p.updated_at desc LIMIT 2";
         return $this->render('index',[
             'topics' => $topics
         ]);
