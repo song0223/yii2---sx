@@ -66,5 +66,10 @@ return [
             ],
         ],
     ],
+    'modules' => [
+        'post' => [
+            'class' => 'frontend\modules\post\Module',
+        ],
+    ],
     'params' => $params,
 ];

@@ -5,6 +5,7 @@
 use yii\helpers\Html;
 use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
+use yii\helpers\Url;
 
 $this->title = Yii::t('app','WebTitle');
 //$this->params['breadcrumbs'][] = $this->title;
@@ -16,18 +17,13 @@ $this->title = Yii::t('app','WebTitle');
         </div>
     </div>
     <div class="col-md-9 topic">
+        <?php foreach($topics as $key => $value): ?>
         <div class="panel panel-default">
             <div class="panel-heading">
                 标题
             </div>
             <div class="panel-body tag-cloud">
-                <?= Html::a(HtmlPurifier::process(Markdown::process('
-PHP将数组转换成XML
-                    1、HP可以将数组转换成xml格式，简单的办法是遍历数组，然后将数组的key/value转换成xml节点，再直接echo输出了
-                    function arrayToXml($arr){
-                    $xml = "<xml>";
-                        foreach($arr as $key=>$val){
-                        if(is_array($val)){', 'gfm')),'#'); ?>
+                <?= Html::a(HtmlPurifier::process(Markdown::process($value['excerpt'], 'gfm')),Url::to(['post/default/view','id'=>$value['id']])); ?>
             </div>
             <div class="panel-footer">
                 <span class="title-info opts">
@@ -95,6 +91,7 @@ PHP将数组转换成XML
                 </span>
             </div>
         </div>
+        <?php endforeach; ?>
     </div>
     <div class="col-md-3 side-bar p0">
 

@@ -1,20 +1,12 @@
 <?php
 namespace frontend\controllers;
 
+use common\models\Post;
 use Yii;
-use yii\base\InvalidParamException;
-use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
-use frontend\models\PasswordResetRequestForm;
-use frontend\models\ResetPasswordForm;
-use frontend\models\SignupForm;
-use frontend\models\ContactForm;
-use yii\helpers\Json;
 use yii\web\ForbiddenHttpException;
-use yii\web\Response;
 
 /**
  * Hot controller
@@ -77,7 +69,10 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $topics = Post::find()->where(['status' => 1])->all();
+        return $this->render('index',[
+            'topics' => $topics
+        ]);
     }
 
 

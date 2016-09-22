@@ -11,6 +11,7 @@ use frontend\assets\BowerAsset;
 
 AppAsset::register($this);
 BowerAsset::register($this);
+nezhelskoy\highlight\HighlightAsset::register($this);
 //AppAsset::addScript($this,Yii::$app->request->baseUrl."/js/loginAjax.js");//在jq后面添加js文件
 ?>
 <?php $this->beginPage() ?>

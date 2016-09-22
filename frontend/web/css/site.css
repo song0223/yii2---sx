@@ -140,7 +140,7 @@ a.desc:after {
     text-decoration: none;
     background-color: #dedbdb;
 }
-.tweet .active .fa, .title-info .active .fa, .filter .active, .red {
+.tweet .active .fa, .title-info .active .fa, .filter .active, .opts .active .fa, .red {
     color: #EB5424;
 }
 .opts a {
@@ -149,4 +149,11 @@ a.desc:after {
 }
 .panel-body a{
     text-decoration: none;
+}
+.opts a:link, .opts a:visited {
+    color: #666;
+    text-decoration: none;
+}
+.list-group-item{
+    border: none;
 }
