@@ -10,6 +10,7 @@ return [
     'id' => 'app-backend',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'backend\controllers',
+    'language'=>'zh-CN',
     'bootstrap' => ['log'],
     'modules' => [],
     'components' => [
@@ -45,6 +46,24 @@ return [
             ],
         ],
         */
+        'i18n' => [
+            'translations' => [
+                'app' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@backend/message',
+                    'fileMap' => [
+                        'app' => 'app.php',
+                    ],
+                ],
+                'power' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@backend/message',
+                    'fileMap' => [
+                        'power' => 'power.php',
+                    ],
+                ],
+            ],
+        ],
     ],
     'params' => $params,
 ];
