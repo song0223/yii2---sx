@@ -84,4 +84,21 @@ class LoginForm extends Model
             'password' => Yii::t('app','password'),
         ];
     }
+
+    /**
+     * 后台登录
+     * @param username
+     * @return bool
+     */
+    public function loginAdmin($username){
+        if ($this->validate()) {
+            if(User::isAdmin($username)){
+                return Yii::$app->user->login($this->getUser(), $this->rememberMe ? 3600 * 24 * 30 : 0);
+            }
+            $this->addError('username', '账户或者密码错误.');
+        } else {
+            $this->addError('password','格式错误');
+        }
+        return false;
+    }
 }

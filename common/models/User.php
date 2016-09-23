@@ -16,6 +16,7 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
+ * @property string $role
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -25,7 +26,8 @@ class User extends ActiveRecord implements IdentityInterface
 {
     const STATUS_DELETED = 0;
     const STATUS_ACTIVE = 10;
-
+    const USER_BACKEND = 20;
+    const USER_FRONTEND = 10;
 
     /**
      * @inheritdoc
@@ -185,5 +187,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+
+    public static function isAdmin($name){
+        return self::find()->where(['username'=>$name,'role'=>self::USER_BACKEND])->one() ?true :false;
     }
 }

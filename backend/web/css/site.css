@@ -109,3 +109,11 @@ a.desc:after {
 .nav > li > form > button:hover {
     text-decoration: none;
 }
+
+.loaderImg{
+    position: absolute; top: 0; left: 0; right: 0; bottom: 0; margin: auto;
+}
+
+.ajaxLoad{
+    cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;
+}
