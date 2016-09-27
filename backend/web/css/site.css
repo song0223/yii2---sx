@@ -117,3 +117,11 @@ a.desc:after {
 .ajaxLoad{
     cursor: progress; position: fixed; top: -50%; left: -50%; width: 200%; height: 200%; background: #fff; z-index: 10000; overflow: hidden;
 }
+
+#user-role label,#user-status label{
+    font-weight:normal;
+}
+
+.treeview-menu li{
+    padding: 5px;
+}

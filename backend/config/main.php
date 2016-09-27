@@ -64,19 +64,10 @@ return [
                 ],
             ],
         ],
-        'view' => [
-            'theme' => [
-                'pathMap' => [
-                    '@app/views' => '@vendor/dmstr/yii2-adminlte-asset/example-views/yiisoft/yii2-app'
-                ],
-            ],
-        ],
-        'assetManager' => [
-            'bundles' => [
-                'dmstr\web\AdminLteAsset' => [
-                    'skin' => 'skin-black',
-                ],
-            ],
+    ],
+    'modules' => [
+        'user' => [
+            'class' => 'backend\modules\user\Module',
         ],
     ],
     'params' => $params,

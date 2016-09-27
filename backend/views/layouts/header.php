@@ -4,8 +4,8 @@
 ?>
 <header class="main-header">
     <?=Html::a(
-        Html::tag('span','大神',['class'=>'logo-mini']).
-        Html::tag('span','每天都被自己帅醒！',['class'=>'logo-lg']),
+        Html::tag('span',Yii::t('app','Identification'),['class'=>'logo-mini']).
+        Html::tag('span',Yii::t('app','Handsome up'),['class'=>'logo-lg']),
         'index',
         ['class'=>'logo'])
     ?>
@@ -41,33 +41,33 @@
                 </li>
                 <li class="dropdown user user-menu">
                     <?= Html::a(
-                        Html::img('@web/img/user2-160x160.jpg',['class'=>'user-image']).
-                        Html::tag('span','管理员',['class'=>'hidden-xs']),
+                        Html::img('@web/img/20150511161039.jpg',['class'=>'user-image']).
+                        Html::tag('span',Yii::t('app','Administrators'),['class'=>'hidden-xs']),
                         '#',
                         ['class'=>'dropdown-toggle','data-toggle'=>'dropdown'])
                     ?>
-                    <ul class="dropdown-menu pull-right">
+                    <ul class="dropdown-menu pull-right" style="width: auto">
                         <li>
                             <?=Html::a(
-                                Html::tag('i','',['class'=>'fa fa-user']).'个人信息',
+                                Html::tag('i','',['class'=>'fa fa-user']).Yii::t('app','Personal information'),
                                 '#',
                                 ['class'=>'menuItem','data-id'=>'userInfo'])
                             ?>
                         </li>
                         <li>
                             <?=Html::a(
-                                Html::tag('i','',['class'=>'fa fa-trash-o']).'清空缓存', '#')
+                                Html::tag('i','',['class'=>'fa fa-trash-o']).Yii::t('app','wipe cache'), '#')
                             ?>
                         </li>
                         <li>
                             <?=Html::a(
-                                Html::tag('i','',['class'=>'fa fa-paint-brush']).'皮肤设置', '#')
+                                Html::tag('i','',['class'=>'fa fa-paint-brush']).Yii::t('app','Skin setting'), '#')
                             ?>
                         </li>
                         <li class="divider"></li>
                         <li>
                             <?=Html::a(
-                                Html::tag('i','',['class'=>'ace-icon fa fa-power-off']).'安全退出', Url::to(['site/logout'])
+                                Html::tag('i','',['class'=>'ace-icon fa fa-power-off']).Yii::t('app','Safe exit'), Url::to(['site/logout'])
                                 )
                             ?>
                         </li>

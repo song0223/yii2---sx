@@ -1,6 +1,7 @@
 <?php
 namespace common\models;
 
+use common\models\sxhelps\SxHelps;
 use Yii;
 use yii\base\NotSupportedException;
 use yii\behaviors\TimestampBehavior;
@@ -24,11 +25,30 @@ use yii\web\IdentityInterface;
  */
 class User extends ActiveRecord implements IdentityInterface
 {
-    const STATUS_DELETED = 0;
+    const STATUS_DELETED = 1;
     const STATUS_ACTIVE = 10;
     const USER_BACKEND = 20;
     const USER_FRONTEND = 10;
+    const ROLE_SUPER_ADMIN = 30;
 
+    public static function map($key = null){
+        $items = [
+            self::STATUS_DELETED => '封禁',
+            self::STATUS_ACTIVE => '正常'
+        ];
+        return SxHelps::getItems($items,$key);
+
+    }
+
+    public static function role_map($key = null){
+        $items = [
+            self::USER_FRONTEND => '普通用户',
+            self::USER_BACKEND => '管理员',
+            self::ROLE_SUPER_ADMIN => '超级管理员'
+        ];
+        return SxHelps::getItems($items,$key);
+
+    }
     /**
      * @inheritdoc
      */
@@ -55,6 +75,11 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_ACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_DELETED]],
+
+            ['role', 'default', 'value' => 10],
+            ['role', 'in', 'range' => [self::USER_FRONTEND, self::USER_BACKEND, self::ROLE_SUPER_ADMIN]],
+
+            [['username','email','password_hash','status','role'],'required']
         ];
     }
 
@@ -191,5 +216,24 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function isAdmin($name){
         return self::find()->where(['username'=>$name,'role'=>self::USER_BACKEND])->one() ?true :false;
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function attributeLabels()
+    {
+        return [
+            'id' => Yii::t('app', 'ID'),
+            'username' => Yii::t('app', '用户名'),
+            'auth_key' => Yii::t('app', 'auth_key'),
+            'password_hash' => Yii::t('app', '密码'),
+            'password_reset_token' => Yii::t('app', 'password_reset_token'),
+            'email' => Yii::t('app', '邮箱'),
+            'role' => Yii::t('app', '权限'),
+            'status' => Yii::t('app', '类型'),
+            'updated_at' => Yii::t('app', '修改时间'),
+            'created_at' => Yii::t('app', '创建时间'),
+        ];
     }
 }

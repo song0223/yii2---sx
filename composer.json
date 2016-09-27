@@ -20,6 +20,7 @@
         "yiisoft/yii2-swiftmailer": "*",
         "bower-asset/font-awesome": "^4.6",
         "kartik-v/yii2-widget-select2": "@dev",
+        "kartik-v/yii2-date-range": "dev-master",
         "dmstr/yii2-adminlte-asset": "^2.3"
     },
     "require-dev": {
