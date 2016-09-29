@@ -42,8 +42,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function role_map($key = null){
         $items = [
-            self::USER_FRONTEND => '普通用户',
-            self::USER_BACKEND => '管理员',
+            self::USER_FRONTEND => '前台用户',
+            self::USER_BACKEND => '后台用户',
             self::ROLE_SUPER_ADMIN => '超级管理员'
         ];
         return SxHelps::getItems($items,$key);
@@ -225,15 +225,15 @@ class User extends ActiveRecord implements IdentityInterface
     {
         return [
             'id' => Yii::t('app', 'ID'),
-            'username' => Yii::t('app', '用户名'),
+            'username' => Yii::t('app', 'username'),
             'auth_key' => Yii::t('app', 'auth_key'),
-            'password_hash' => Yii::t('app', '密码'),
+            'password_hash' => Yii::t('app', 'password'),
             'password_reset_token' => Yii::t('app', 'password_reset_token'),
-            'email' => Yii::t('app', '邮箱'),
-            'role' => Yii::t('app', '权限'),
-            'status' => Yii::t('app', '类型'),
-            'updated_at' => Yii::t('app', '修改时间'),
-            'created_at' => Yii::t('app', '创建时间'),
+            'email' => Yii::t('app', 'email'),
+            'role' => Yii::t('app', 'Account type'),
+            'status' => Yii::t('app', 'Type'),
+            'updated_at' => Yii::t('app', 'updated_at'),
+            'created_at' => Yii::t('app', 'created_at'),
         ];
     }
 }

@@ -69,6 +69,19 @@ return [
         'user' => [
             'class' => 'backend\modules\user\Module',
         ],
+        'admin' => [
+            'class' => 'backend\modules\rbac\Module',
+            'layout' => '@backend/views/layouts/main',
+        ]
+    ],
+    'as access' => [
+        'class' => 'backend\modules\rbac\components\AccessControl',
+        'allowActions' => [
+            'site/*',//允许访问的节点，可自行添加
+            'admin/*',//允许所有人访问admin节点及其子节点
+            'gii/*',
+            'debug/*'
+        ]
     ],
     'params' => $params,
 ];

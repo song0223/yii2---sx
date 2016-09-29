@@ -10,7 +10,7 @@ use yii\helpers\Html;
 use dmstr\widgets\Menu;
 use yii\helpers\Url;
 
-$isUser = ($this->context->module->id == 'user')?true:false;
+$isUser = ($this->context->module->id == 'user' || $this->context->module->id == 'admin')?true:false;
 ?>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -51,10 +51,10 @@ $isUser = ($this->context->module->id == 'user')?true:false;
                 'options' => ['class'=>$isUser?'active':''],
                 'items' => [
                     ['label' => Yii::t('app','user management'), 'icon' => 'fa fa-circle-o', 'url' => Url::to('/user'),],
-                    ['label' => Yii::t('app','role management'), 'icon' => 'fa fa-circle-o', 'url' => Url::to('/user/role'),],
-                    ['label' => '路由管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '权限管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '规则管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                    ['label' => Yii::t('app','role management'), 'icon' => 'fa fa-circle-o', 'url' => Url::to('/admin/role'),],
+                    ['label' => Yii::t('app','route management'), 'icon' => 'fa fa-circle-o', 'url' => Url::to('/admin/route'),],
+                    ['label' => Yii::t('app','permission management'), 'icon' => 'fa fa-circle-o', 'url' => Url::to('/admin/permission'),],
+                    //['label' => Yii::t('app','rule management'), 'icon' => 'fa fa-circle-o', 'url' => Url::to('/admin/rule'),],
                 ],
             ],
             [

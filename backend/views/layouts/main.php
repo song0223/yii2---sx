@@ -44,10 +44,10 @@ AdminLteAsset::register($this);
                 <h1>
                     <?php
                     if ($this->title !== null) {
-                        echo \yii\helpers\Html::encode($this->title);
+                        echo Html::encode($this->title);
                     } else {
-                        echo \yii\helpers\Inflector::camel2words(
-                            \yii\helpers\Inflector::id2camel($this->context->module->id)
+                        echo Inflector::camel2words(
+                            Inflector::id2camel($this->context->module->id)
                         );
                         echo ($this->context->module->id !== \Yii::$app->id) ? '<small>Module</small>' : '';
                     } ?>

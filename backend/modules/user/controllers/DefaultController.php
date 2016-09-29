@@ -4,6 +4,7 @@ namespace backend\modules\user\controllers;
 
 use Yii;
 use common\models\User;
+use yii\base\Object;
 use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
@@ -121,5 +122,45 @@ class DefaultController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws NotFoundHttpException
+     */
+    public function actionAssignMent($id){
+        $model = $this->findModel($id);
+        $authManager = Yii::$app->authManager;
+        if($model->load(Yii::$app->request->post())){
+            $role = (object) '';
+            $role->name = '';
+            $authManager->revokeAll($id); //清空角色 重新写入
+            foreach($model->role as $role->name){
+                $authManager->assign($role, $id);
+            }
+            return $this->redirect(['assign-ment', 'id' => $model->id]);
+        }else{
+            $roles = $authManager->getRoles(); //所有角色
+            $rolesByUser = $authManager->getRolesByUser($id); //当前用户角色
+            return $this->render('assign',[
+                'model' => $model,
+                'roles' => $roles,
+                'rolesByUser' => $rolesByUser
+            ]);
+        }
+    }
+
+
+    public function actionBan($id){
+        if(Yii::$app->user->id != $id){
+            $model = $this->findModel($id);
+            $model->status = User::STATUS_DELETED;
+            $model->save();
+        }else{
+            Yii::$app->getSession()->setFlash('error','不能封禁自己');
+        }
+        return $this->redirect(['update','id'=>$id]);
     }
 }

@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="article-index">
     <div class="box box-primary">
-        <div class="box-header"><h2 class="box-title">用户列表</h2></div>
         <div class="box-body">
             <p>
                 <?= Html::a(Yii::t('app', 'Create User'), ['create'], ['class' => 'btn btn-success']) ?>
