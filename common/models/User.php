@@ -232,8 +232,8 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => Yii::t('app', 'email'),
             'role' => Yii::t('app', 'Account type'),
             'status' => Yii::t('app', 'Type'),
-            'updated_at' => Yii::t('app', 'updated_at'),
-            'created_at' => Yii::t('app', 'created_at'),
+            'updated_at' => Yii::t('app', 'Updated At'),
+            'created_at' => Yii::t('app', 'Created At'),
         ];
     }
 }

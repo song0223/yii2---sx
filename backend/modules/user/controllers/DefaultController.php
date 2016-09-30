@@ -2,6 +2,7 @@
 
 namespace backend\modules\user\controllers;
 
+use common\widgets\MessagePrompt;
 use Yii;
 use common\models\User;
 use yii\base\Object;
@@ -26,6 +27,7 @@ class DefaultController extends Controller
                 'class' => VerbFilter::className(),
                 'actions' => [
                     'delete' => ['POST'],
+                    'ban' => ['POST'],
                 ],
             ],
         ];
@@ -68,6 +70,7 @@ class DefaultController extends Controller
         $model = new User();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -87,6 +90,7 @@ class DefaultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -104,7 +108,7 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
         return $this->redirect(['index']);
     }
 
@@ -140,6 +144,7 @@ class DefaultController extends Controller
             foreach($model->role as $role->name){
                 $authManager->assign($role, $id);
             }
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['assign-ment', 'id' => $model->id]);
         }else{
             $roles = $authManager->getRoles(); //所有角色
@@ -152,15 +157,32 @@ class DefaultController extends Controller
         }
     }
 
-
+    /**
+     * 封禁用户
+     * @param $id
+     * @return \yii\web\Response
+     * @throws NotFoundHttpException
+     */
     public function actionBan($id){
         if(Yii::$app->user->id != $id){
             $model = $this->findModel($id);
             $model->status = User::STATUS_DELETED;
             $model->save();
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
         }else{
-            Yii::$app->getSession()->setFlash('error','不能封禁自己');
+            MessagePrompt::setErrorMsg(Yii::t('app','operation failed！'));
         }
+        return $this->redirect(['update','id'=>$id]);
+    }
+
+
+
+    public function actionLiftBan($id){
+        $model = $this->findModel($id);
+        $model->status = User::STATUS_ACTIVE;
+        $model->save();
+        MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
+
         return $this->redirect(['update','id'=>$id]);
     }
 }

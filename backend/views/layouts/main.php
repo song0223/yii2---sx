@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\widgets\Breadcrumbs;
-use common\widgets\Alert;
+use common\widgets\AutoDelayAlert;
 use backend\assets\BowerAsset;
 use dmstr\web\AdminLteAsset;
 
@@ -58,7 +58,7 @@ AdminLteAsset::register($this);
             ]) ?>
         </section>
         <section class="content">
-            <?= Alert::widget() ?>
+            <?= AutoDelayAlert::widget(['delay'=>3000]) ?>
             <?= $content ?>
         </section>
     </div>

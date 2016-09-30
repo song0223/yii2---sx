@@ -25,7 +25,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             aria-hidden="true">
                         &times;
                     </button>
-                    信息！请注意这个信息。
+                    <?=Yii::t('app','You can assign multiple roles or permissions to a user')?>
                 </div>
                 <?php ActiveForm::begin() ?>
                     <div class="form-group">
@@ -39,8 +39,8 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'tags' => false,
                                 'maximumInputLength' => 10
                             ],
-                        ])?>
-                        <?= Html::submitButton(Yii::t('app', 'To update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                        ])?><br />
+                        <?= Html::submitButton(Yii::t('app', 'To update'), ['class' =>' btn btn-success' ]) ?>
                     </div>
                 <?php ActiveForm::end(); ?>
             </div>

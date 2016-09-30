@@ -53,7 +53,15 @@
                 'To update' => '更新',
                 'Account type' => '账户类型',
                 'email' => '邮箱',
+                'username' => '用户名',
                 'password' => '密码',
                 'Ban' => '封禁',
+                'Lift a ban' => '解禁',
                 'Are you sure you want to ban this item?' => '你确定要封禁该用户吗？',
+                'Are you sure you want to Lift a ban this item?' => '你确定要解禁该用户吗？',
+
+                'Successful operation！' => '操作成功！',
+                'operation failed！' => '操作失败！',
+
+                'You can assign multiple roles or permissions to a user' => '您可以给用户分配多个角色或权限',
         ];
