@@ -10,7 +10,7 @@ use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use backend\modules\user\models\UserSearch;
+use backend\modules\user\models\search\UserSearch;
 
 /**
  * DefaultController implements the CRUD actions for User model.

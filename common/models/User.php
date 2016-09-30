@@ -78,7 +78,7 @@ class User extends ActiveRecord implements IdentityInterface
 
             ['role', 'default', 'value' => 10],
             ['role', 'in', 'range' => [self::USER_FRONTEND, self::USER_BACKEND, self::ROLE_SUPER_ADMIN]],
-
+            ['email', 'email'],
             [['username','email','password_hash','status','role'],'required']
         ];
     }

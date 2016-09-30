@@ -125,3 +125,7 @@ a.desc:after {
 .treeview-menu li{
     padding: 5px;
 }
+div.required .control-label:after {
+    content: " *";
+    color: red;
+}

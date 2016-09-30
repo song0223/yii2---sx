@@ -1,5 +1,5 @@
 <?php
-namespace backend\modules\user\models;
+namespace backend\modules\user\models\search;
 
 use yii\data\ActiveDataProvider;
 use common\models\User;
