@@ -64,4 +64,10 @@
                 'operation failed！' => '操作失败！',
 
                 'You can assign multiple roles or permissions to a user' => '您可以给用户分配多个角色或权限',
+
+
+                'Posts' => '文章列表',
+                'Create Post' => '发布文章',
+                'Topics' => '帖子列表',
+                'Create Topic' => '发布帖子',
         ];

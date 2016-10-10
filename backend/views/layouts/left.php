@@ -11,6 +11,7 @@ use dmstr\widgets\Menu;
 use yii\helpers\Url;
 
 $isUser = ($this->context->module->id == 'user' || $this->context->module->id == 'admin')?true:false;
+$isPost = ($this->context->module->id == 'post')?true:false;
 ?>
 <aside class="main-sidebar">
     <section class="sidebar">
@@ -58,26 +59,27 @@ $isUser = ($this->context->module->id == 'user' || $this->context->module->id ==
                 ],
             ],
             [
+                'label' => '内容',
+                'icon' => 'fa fa-share',
+                'url' => '#',
+                'options' => ['class'=>$isPost?'active':''],
+                'items' => [
+                    ['label' => '文章列表', 'icon' => 'fa fa-circle-o', 'url' => Url::to('/post'),],
+                    ['label' => '发布文章', 'icon' => 'fa fa-circle-o', 'url' => Url::to('/post/default/create'),],
+                    ['label' => '回收站', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                    ['label' => '分类管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                    ['label' => '评论管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                    ['label' => '留言板', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                    ['label' => '单页管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                ],
+            ],
+            [
                 'label' => '数据库',
                 'icon' => 'fa fa-share',
                 'url' => '#',
                 'items' => [
                     ['label' => '备份', 'icon' => 'fa fa-circle-o', 'url' => ['/gii'],],
                     ['label' => '还原', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                ],
-            ],
-            [
-                'label' => '内容',
-                'icon' => 'fa fa-share',
-                'url' => '#',
-                'items' => [
-                    ['label' => '文章列表', 'icon' => 'fa fa-circle-o', 'url' => ['/gii'],],
-                    ['label' => '发布文章', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '回收站', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '分类管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '评论管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '留言板', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
-                    ['label' => '单页管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
                 ],
             ],
             [
@@ -95,26 +97,3 @@ $isUser = ($this->context->module->id == 'user' || $this->context->module->id ==
 ) ?>
     </section>
 </aside>
-
-<!--menu格式 'items' => [
-    ['label' => 'Gii', 'icon' => 'fa fa-file-code-o', 'url' => ['/gii'],],
-    ['label' => 'Debug', 'icon' => 'fa fa-dashboard', 'url' => ['/debug'],],
-    [
-    'label' => 'Level One',
-    'icon' => 'fa fa-circle-o',
-    'url' => '#',
-    'items' => [
-    ['label' => 'Level Two', 'icon' => 'fa fa-circle-o', 'url' => '#',],
-    [
-    'label' => 'Level Two',
-    'icon' => 'fa fa-circle-o',
-    'url' => '#',
-    'items' => [
-    ['label' => 'Level Three', 'icon' => 'fa fa-circle-o', 'url' => '#',],
-    ['label' => 'Level Three', 'icon' => 'fa fa-circle-o', 'url' => '#',],
-    ],
-    ],
-    ],
-    ],
-    ],
--->

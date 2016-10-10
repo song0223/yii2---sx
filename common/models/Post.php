@@ -2,6 +2,7 @@
 
 namespace common\models;
 
+use common\models\sxhelps\SxHelps;
 use Yii;
 use yii\behaviors\AttributeBehavior;
 use yii\behaviors\BlameableBehavior;
@@ -37,6 +38,45 @@ use yii\db\ActiveRecord;
 class Post extends \yii\db\ActiveRecord
 {
     const TOPIC_TECHNICAL = 'topic';
+    /**
+     * 置顶
+     */
+    const STATUS_TOP = 3;
+
+    /**
+     * 推荐
+     */
+    const STATUS_EXCELLENT = 2;
+
+    /**
+     * 发布
+     */
+    const STATUS_ACTIVE = 1;
+
+    /**
+     * 删除
+     */
+    const STATUS_DELETED = 0;
+
+    /**
+     * 草稿
+     */
+    const STATUS_DRAFT = 4;
+
+    public $type;
+
+    public static function statusMap($key = null){
+        $items = [
+            self::STATUS_TOP => '置顶',
+            self::STATUS_EXCELLENT => '推荐',
+            self::STATUS_ACTIVE => '发布',
+            self::STATUS_DRAFT => '草稿',
+            self::STATUS_DELETED => '删除',
+        ];
+        return SxHelps::getItems($items,$key);
+
+    }
+
     /**
      * @inheritdoc
      */
@@ -116,7 +156,7 @@ class Post extends \yii\db\ActiveRecord
             'like_count' => Yii::t('app', '喜欢数'),
             'thanks_count' => Yii::t('app', '感谢数'),
             'hate_count' => Yii::t('app', '讨厌数'),
-            'status' => Yii::t('app', '状态 1:发布 0：草稿'),
+            'status' => Yii::t('app', '状态 1:发布 0：删除'),
             'order' => Yii::t('app', '排序 0最大'),
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '修改时间'),

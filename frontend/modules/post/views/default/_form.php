@@ -45,7 +45,8 @@ $this->registerJs("
                 'leptureOptions' => [
                     'toolbar' => false
                 ]
-            ]) ?>
+            ])
+        ?>
         <?= Select2::widget([
             'id' => 'topic-tags',
             'name' => 'Topic[tags]',

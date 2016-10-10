@@ -72,7 +72,10 @@ return [
         'admin' => [
             'class' => 'backend\modules\rbac\Module',
             'layout' => '@backend/views/layouts/main',
-        ]
+        ],
+        'post' => [
+            'class' => 'backend\modules\post\Module',
+        ],
     ],
     'as access' => [
         'class' => 'backend\modules\rbac\components\AccessControl',

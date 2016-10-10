@@ -87,4 +87,18 @@ class PostMeta extends \yii\db\ActiveRecord
         }
         return $classifying;
     }
+
+
+    /**
+     * 根据id获取分类名称
+     * @param $id
+     * @return bool|mixed
+     */
+    public static function getNameByid($id){
+        $user =  self::find()->where(['id'=>$id])->one();
+        if($user){
+            return $user['name'];
+        }
+        return false;
+    }
 }

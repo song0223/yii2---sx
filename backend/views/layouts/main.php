@@ -11,6 +11,7 @@ use yii\widgets\Breadcrumbs;
 use common\widgets\AutoDelayAlert;
 use backend\assets\BowerAsset;
 use dmstr\web\AdminLteAsset;
+use yii\helpers\Inflector;
 
 AppAsset::register($this);
 BowerAsset::register($this);
