@@ -7,6 +7,7 @@ use kartik\select2\Select2;
 use common\models\PostMeta;
 use common\models\PostTag;
 use common\models\Post;
+use kartik\widgets\DateTimePicker;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\post\models\Topic */
@@ -61,8 +62,10 @@ $this->registerJs("
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
-        <?= $form->field($model, 'created_at')->textInput(['maxlength' => true]) ?>
-
+        <?= $form->field($model, 'created_at')->widget(DateTimePicker::className(),[
+            'options' => ['placeholder' => '选择时间'],
+            'pluginOptions' => ['autoclose' => true],
+        ]) ?>
         <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
 
         <?= $form->field($model, 'status')->radioList(Post::statusMap())->label(false) ?>

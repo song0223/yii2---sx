@@ -1,6 +1,7 @@
 <?php
 namespace backend\modules\user\models\search;
 
+use backend\models\TimeSectionSearch;
 use yii\data\ActiveDataProvider;
 use common\models\User;
 use yii\base\Model;
@@ -45,12 +46,7 @@ class UserSearch extends User
             return $dataProvider;
         }
 
-        if($this->created_at){
-            $createdAt = explode('-', $this->created_at);
-            $createdAtStart = strtotime($createdAt[0]);
-            $createdAtEnd = strtotime($createdAt[1]);
-            $query->andFilterWhere(['between' , 'created_at' , $createdAtStart , $createdAtEnd]);
-        }
+        TimeSectionSearch::andTimeSection($query, 'created_at', $this->created_at);
 
         // 通过添加过滤器来调整查询语句
         $query->andFilterWhere(['id' => $this->id]);

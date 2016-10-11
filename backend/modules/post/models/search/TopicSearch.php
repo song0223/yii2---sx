@@ -2,6 +2,7 @@
 
 namespace backend\modules\post\models\search;
 
+use backend\models\TimeSectionSearch;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -18,8 +19,8 @@ class TopicSearch extends Topic
     public function rules()
     {
         return [
-            [['id', 'post_meta_id', 'user_id', 'last_comment_time', 'view_count', 'comment_count', 'favorite_count', 'like_count', 'thanks_count', 'hate_count', 'status', 'order', 'created_at', 'updated_at'], 'integer'],
-            [['title', 'author', 'excerpt', 'image', 'content', 'tags', 'last_comment_name', 'type'], 'safe'],
+            [['id', 'post_meta_id', 'user_id', 'last_comment_time', 'view_count', 'comment_count', 'favorite_count', 'like_count', 'thanks_count', 'hate_count', 'status', 'order', 'updated_at'], 'integer'],
+            [['title', 'author', 'excerpt', 'image', 'content', 'tags', 'last_comment_name','created_at' ,'type'], 'safe'],
         ];
     }
 
@@ -71,10 +72,9 @@ class TopicSearch extends Topic
             'hate_count' => $this->hate_count,
             'status' => $this->status,
             'order' => $this->order,
-            'created_at' => $this->created_at,
+            //'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
         ]);
-
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'author', $this->author])
             ->andFilterWhere(['like', 'excerpt', $this->excerpt])
@@ -83,7 +83,8 @@ class TopicSearch extends Topic
             ->andFilterWhere(['like', 'tags', $this->tags])
             ->andFilterWhere(['like', 'last_comment_name', $this->last_comment_name])
             ->andFilterWhere(['like', 'type', $this->type]);
-
+        //时间区间搜索
+        TimeSectionSearch::andTimeSection($query, 'created_at', $this->created_at);
         return $dataProvider;
     }
 }

@@ -121,14 +121,14 @@ class Post extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['post_meta_id', 'user_id', 'view_count', 'comment_count', 'favorite_count', 'like_count', 'thanks_count', 'hate_count', 'status', 'order', 'created_at', 'updated_at','last_comment_time'], 'integer'],
+            [['post_meta_id', 'user_id', 'view_count', 'comment_count', 'favorite_count', 'like_count', 'thanks_count', 'hate_count', 'status', 'order', 'updated_at','last_comment_time'], 'integer'],
             [['content'], 'required'],
             [['content','type'], 'string'],
             [['title'], 'string', 'max' => 150],
             [['author','last_comment_time'], 'string', 'max' => 100],
             [['excerpt'], 'string', 'max' => 255],
             [['image'], 'string', 'max' => 200],
-            [['tags'],'safe']
+            [['tags','created_at'],'safe']
         ];
     }
 
@@ -156,7 +156,7 @@ class Post extends \yii\db\ActiveRecord
             'like_count' => Yii::t('app', '喜欢数'),
             'thanks_count' => Yii::t('app', '感谢数'),
             'hate_count' => Yii::t('app', '讨厌数'),
-            'status' => Yii::t('app', '状态 1:发布 0：删除'),
+            'status' => Yii::t('app', '状态'),
             'order' => Yii::t('app', '排序 0最大'),
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '修改时间'),

@@ -4,6 +4,8 @@ use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
 use common\models\PostMeta;
+use backend\widgets\grid\GridSearchColumns;
+use backend\modules\post\models\Topic;
 /* @var $this yii\web\View */
 /* @var $searchModel backend\modules\post\models\search\TopicSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -30,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'content' => function($dataProvider){
                     return PostMeta::getNameByid($dataProvider['post_meta_id']);
                 },
+                'filter' => GridSearchColumns::makeDropDownList('TopicSearch[post_meta_id]',$searchModel->post_meta_id,PostMeta::getClassifying())
             ],
             'title',
             'author',
@@ -45,9 +48,19 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'like_count',
             // 'thanks_count',
             // 'hate_count',
-            // 'status',
+            [
+                'attribute' => 'status',
+                'content' => function($dataProvider){
+                    return Topic::statusMap($dataProvider['status']);
+                },
+                'filter' => GridSearchColumns::makeDropDownList('TopicSearch[status]',$searchModel->status, Topic::statusMap())
+            ],
             // 'order',
-            'created_at:dateTime',
+            [
+                'attribute' => 'created_at',
+                'format' =>  ['date', 'php:Y-m-d H:i:s'],
+                'filter' => GridSearchColumns::makeDatePicker('created_at', $searchModel)
+            ],
             // 'updated_at',
             // 'type',
 
