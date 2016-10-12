@@ -72,4 +72,26 @@ class PostTag extends \yii\db\ActiveRecord
         }
         return $options;
     }
+
+
+    /**
+     * ajax获取标签
+     * @param $meta
+     * @return array
+     */
+    public static function getAjaxTags($meta){
+        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'name' => '']];
+        if (!$meta) {
+            return $out;
+        }
+
+        $data = PostTag::find()
+            ->select('name id,name text') //必须text才可用
+            ->where(['meta_id'=>$meta])
+            ->asArray()
+            ->all();
+        $out['results'] = array_values($data);
+        return $out;
+    }
 }

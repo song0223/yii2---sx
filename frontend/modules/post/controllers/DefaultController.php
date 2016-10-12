@@ -135,4 +135,13 @@ class DefaultController extends Controller
             return PostTag::getTagsByMeta($meta, null);
         }
     }
+
+    /**
+     * @param $q
+     * @param $meta
+     * @return array
+     */
+    public function actionTags($q, $meta){
+        return PostTag::getAjaxTags($meta);
+    }
 }

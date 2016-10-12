@@ -107,6 +107,7 @@ class Post extends \yii\db\ActiveRecord
                     self::EVENT_BEFORE_UPDATE => 'tags',
                 ],
                 'value' => function($event){
+                    var_dump($this->tags);exit();
                     return $this->addTags($this->tags);
                 }
             ],
@@ -214,4 +215,12 @@ class Post extends \yii\db\ActiveRecord
     public function getPostMeta(){
         return $this->hasOne(PostMeta::className(),['id' => 'post_meta_id']);
     }
+
+
+    public static $formName = 'tagsItem';
+
+    public function getTagsItem(){
+        return explode(',',$this->tags);
+    }
+
 }

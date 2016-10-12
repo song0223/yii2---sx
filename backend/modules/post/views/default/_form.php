@@ -8,21 +8,11 @@ use common\models\PostMeta;
 use common\models\PostTag;
 use common\models\Post;
 use kartik\widgets\DateTimePicker;
+use common\widgets\SelectInput;
 
 /* @var $this yii\web\View */
 /* @var $model backend\modules\post\models\Topic */
 /* @var $form yii\widgets\ActiveForm */
-$this->registerJs("
-    function changeTags(id){
-        $.post('get-tags?meta='+id,function(data){
-            if(data){
-                $('#topic-tags').append(data);
-            }else{
-                $('#topic-tags').empty();
-            }
-         });
-    }
-",$this::POS_END);
 ?>
 
 <div class="topic-form">
@@ -39,13 +29,13 @@ $this->registerJs("
 
                 <?= $form->field($model, 'post_meta_id')->widget(Select2::classname(), [
                     'data' => PostMeta::getClassifying(),
-                    'options' => ['placeholder' => '请选择分类 ...','onchange'=>'changeTags($(this).val())'],
+                    'options' => ['placeholder' => '请选择分类 ...'],
                     'pluginOptions' => [
                         'allowClear' => true
                     ],
                 ]); ?>
 
-                <?= $form->field($model, 'excerpt')->textarea(['placeholder' => '不填默认为内容前200个字符']) ?>
+                <?= $form->field($model, 'excerpt')->textarea(['rows'=>'6','placeholder' => '不填默认为内容前200个字符']) ?>
 
                 <?= Markdowneditor::widget([
                     'model' => $model,
@@ -63,7 +53,10 @@ $this->registerJs("
             <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>
         <?= $form->field($model, 'created_at')->widget(DateTimePicker::className(),[
-            'options' => ['placeholder' => '选择时间'],
+            'options' => [
+                'placeholder' => '选择时间',
+                'value' => !empty($model->created_at) ? date('Y-m-d H:i:s', $model->created_at) : ''
+            ],
             'pluginOptions' => ['autoclose' => true],
         ]) ?>
         <?= $form->field($model, 'image')->textInput(['maxlength' => true]) ?>
@@ -86,25 +79,7 @@ $this->registerJs("
             <div class="box-body " style="display: block;">
                 <ul class="sortable" data-domain="1" data-sortable-id="1" aria-dropeffect="move">
                 </ul>
-                <?= Select2::widget([
-                    'id' => 'topic-tags',
-                    'name' => 'Topic[tags]',
-                    'value' => $type?explode(',',$model->tags):[], // initial value
-                    'data' => $type?PostTag::getTagsByMeta($model->post_meta_id,$type):[],
-                    'maintainOrder' => true,
-                    'toggleAllSettings' => [
-                        'selectLabel' => '<i class="glyphicon glyphicon-ok-circle"></i> 选择全部',
-                        'unselectLabel' => '<i class="glyphicon glyphicon-remove-circle"></i> 删除全部',
-                        'selectOptions' => ['class' => 'text-success'],
-                        'unselectOptions' => ['class' => 'text-danger'],
-                    ],
-                    'options' => ['placeholder' => '标签(可选)', 'multiple' => true],
-                    'pluginOptions' => [
-                        'tags' => true,
-                        'maximumInputLength' => 10
-                    ],
-                ]);
-                ?>
+                <?= $form->field($model,'tags')->widget(SelectInput::className()) ?>
             </div>
             <!-- /.box-body -->
         </div>

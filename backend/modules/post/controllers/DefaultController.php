@@ -2,6 +2,8 @@
 
 namespace backend\modules\post\controllers;
 
+use common\models\PostTag;
+use common\widgets\MessagePrompt;
 use Yii;
 use backend\modules\post\models\Topic;
 use backend\modules\post\models\search\TopicSearch;
@@ -66,6 +68,7 @@ class DefaultController extends Controller
         $model = new Topic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -85,6 +88,7 @@ class DefaultController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -102,7 +106,7 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
         return $this->redirect(['index']);
     }
 
@@ -120,5 +124,10 @@ class DefaultController extends Controller
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
+    }
+
+
+    public function actionTags($q, $meta){
+        return PostTag::getAjaxTags($meta);
     }
 }
