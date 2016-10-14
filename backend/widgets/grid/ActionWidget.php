@@ -25,8 +25,6 @@ class ActionWidget extends ActionColumn
             $this->buttons['view'] = function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [
                     'title' => Yii::t('app','Look'),
-                    'data-method' => 'user',
-                    'data-pjax' => '0',
                     'class' => 'btn btn-default btn-xs'
                 ]);
             };
@@ -35,8 +33,6 @@ class ActionWidget extends ActionColumn
             $this->buttons['update'] = function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                     'title' => Yii::t('app','Update User'),
-                    'data-method' => 'user',
-                    'data-pjax' => '0',
                     'class' => 'btn btn-default btn-xs'
                 ]);
             };
@@ -45,8 +41,6 @@ class ActionWidget extends ActionColumn
             $this->buttons['delete'] = function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                     'title' => Yii::t('app','Delete'),
-                    'data-method' => 'user',
-                    'data-pjax' => '0',
                     'data-method' => 'post',
                     'data-confirm' => Yii::t('yii', 'Are you sure you want to delete this item?'),
                     'class' => 'btn btn-default btn-xs'

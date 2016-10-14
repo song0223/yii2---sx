@@ -70,4 +70,12 @@
                 'Create Post' => '发布文章',
                 'Topics' => '帖子列表',
                 'Create Topic' => '发布帖子',
+
+                'Empty Trash' => '清空回收站',
+                'recycle' => '回收站',
+                'Are you sure you want to Empty Trash?' => '您确定要清空回收站吗？',
+                'Are you sure you want to Clear this user?' => '您确定要清除该用户吗？',
+
+                'Post Metas' => '分类列表',
+                'Create Post Meta' => '新增分类',
         ];

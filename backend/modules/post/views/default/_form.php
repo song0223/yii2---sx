@@ -50,7 +50,7 @@ use common\widgets\SelectInput;
 </div>
     <div class="col-lg-3">
         <div class="form-group">
-            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+            <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success btn-block' : 'btn btn-primary btn-block']) ?>
         </div>
         <?= $form->field($model, 'created_at')->widget(DateTimePicker::className(),[
             'options' => [

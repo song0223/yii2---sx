@@ -53,7 +53,7 @@ class SxHelps
      *  获取字段名称
      */
     public static function getItems($items, $key=null){
-        if($key){
+        if($key !== null){
             if(array_key_exists($key,$items)){
                 return $items[$key];
             }

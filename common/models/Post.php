@@ -107,7 +107,6 @@ class Post extends \yii\db\ActiveRecord
                     self::EVENT_BEFORE_UPDATE => 'tags',
                 ],
                 'value' => function($event){
-                    var_dump($this->tags);exit();
                     return $this->addTags($this->tags);
                 }
             ],
@@ -217,7 +216,7 @@ class Post extends \yii\db\ActiveRecord
     }
 
 
-    public static $formName = 'tagsItem';
+    public static $formName = 'tagsItem'; //设置特殊字段 获取值
 
     public function getTagsItem(){
         return explode(',',$this->tags);

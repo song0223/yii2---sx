@@ -1,21 +1,18 @@
 <?php
 
-namespace frontend\modules\post\controllers;
+namespace backend\modules\post\controllers;
 
-use common\models\PostMeta;
-use common\models\PostTag;
-use frontend\modules\post\models\Topic;
 use Yii;
-use yii\data\ActiveDataProvider;
-use yii\helpers\Json;
+use common\models\PostMeta;
+use backend\modules\post\models\search\PostMetaSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Post model.
+ * MetaController implements the CRUD actions for PostMeta model.
  */
-class DefaultController extends Controller
+class MetaController extends Controller
 {
     /**
      * @inheritdoc
@@ -33,44 +30,40 @@ class DefaultController extends Controller
     }
 
     /**
-     * Lists all Post models.
+     * Lists all PostMeta models.
      * @return mixed
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Topic::find(),
-        ]);
-
+        $searchModel = new PostMetaSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+    
         return $this->render('index', [
+            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
     /**
-     * 帖子详情页
+     * Displays a single PostMeta model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-
-        //文章浏览数+1
-        $model->updateAllCounters(['view_count' => 1] , ['id' => $id]);
         return $this->render('view', [
-            'model' => $model,
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Post model.
+     * Creates a new PostMeta model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
     public function actionCreate()
     {
-        $model = new Topic();
+        $model = new PostMeta();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
@@ -82,7 +75,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Post model.
+     * Updates an existing PostMeta model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -90,8 +83,8 @@ class DefaultController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->tags = explode(',',$model->tags);
-        if ($model->load(Yii::$app->request->post()) && $model->save() ) {
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -101,7 +94,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Post model.
+     * Deletes an existing PostMeta model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
@@ -114,34 +107,18 @@ class DefaultController extends Controller
     }
 
     /**
-     * Finds the Post model based on its primary key value.
+     * Finds the PostMeta model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Topic the loaded model
+     * @return PostMeta the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Topic::findOne($id)) !== null) {
+        if (($model = PostMeta::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionGetTags(){
-       if(Yii::$app->request->isAjax){
-            $meta = Yii::$app->request->get('meta');
-            return PostTag::getTagsByMeta($meta, null);
-        }
-    }
-
-    /**
-     * @param $q
-     * @param $meta
-     * @return array
-     */
-    public function actionTags($q, $meta){
-        return PostTag::getAjaxTags($meta);
     }
 }

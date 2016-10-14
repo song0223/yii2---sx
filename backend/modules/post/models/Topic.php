@@ -32,4 +32,5 @@ class Topic extends Post
                 return false;
             }
         }
+
 }
