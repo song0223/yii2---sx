@@ -19,29 +19,23 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php Pjax::begin(); ?>
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        //'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
             'id',
-            [
-                'attribute' => 'name',
-                'content' => function($dataProvider){
-                    if($dataProvider['parent'] != 0){
-                        return '---'.$dataProvider['name'];
-                    }else{
-                        return $dataProvider['name'];
-                    }
-                }
-            ],
-            'alias',
+            'name:html:分类名',
+            'alias:text:别名',
             // 'description',
-            'count',
+            'count:text:文章数',
             // 'order',
             // 'created_at',
             // 'updated_at',
 
-            ['class' => 'backend\widgets\grid\ActionWidget'],
+            [
+                'class' => 'backend\widgets\grid\ActionWidget',
+                'template' =>'{:create} {:update} {:delete}'
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?>

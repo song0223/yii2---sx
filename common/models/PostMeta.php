@@ -50,12 +50,12 @@ class PostMeta extends \yii\db\ActiveRecord
         return [
             'id' => Yii::t('app', 'ID'),
             'name' => Yii::t('app', '名称'),
-            'parent' => Yii::t('app', '父级ID'),
+            'parent' => Yii::t('app', '上级分类'),
             'alias' => Yii::t('app', '别名'),
-            'type' => Yii::t('app', '项目类型'),
-            'description' => Yii::t('app', '项目描述'),
-            'count' => Yii::t('app', '项目所选内容个数'),
-            'order' => Yii::t('app', '项目排序'),
+            'type' => Yii::t('app', '类型'),
+            'description' => Yii::t('app', '分类描述'),
+            'count' => Yii::t('app', '文章数'),
+            'order' => Yii::t('app', '排序'),
             'created_at' => Yii::t('app', '创建时间'),
             'updated_at' => Yii::t('app', '修改时间'),
         ];
@@ -100,5 +100,63 @@ class PostMeta extends \yii\db\ActiveRecord
             return $user['name'];
         }
         return false;
+    }
+
+
+    /**
+     * 获取分类树 递归排序
+     * @param null $tree
+     * @param array $result
+     * @param int $deep
+     * @param string $separator
+     * @return array
+     */
+    public static function getTrees($tree = null, &$result = [], $deep = 0, $separator = '---&nbsp;'){
+        if($tree == null){
+            $tree = self::build_tree(0);
+        }
+        $deep++;
+        foreach($tree as $list){
+            $list['name'] = str_repeat($separator, $deep-1) . $list['name'];
+            $result[$list['id']] = $list;
+            if (isset($list['childs'])) {
+                self::getTrees($list['childs'], $result, $deep, $separator);
+            }
+        }
+        return $result;
+    }
+
+    /**
+     * 获取子节点
+     * @param $data
+     * @param $pid
+     * @return array
+     */
+    protected static function findChild(&$data,$pid){
+        $array = [];
+        foreach($data as $k=>$v){
+            if($pid == $v['parent']){
+                $array[$k] = $v;
+                unset($data[$k]);
+            }
+        }
+        return $array;
+    }
+
+    /**
+     * 组合数据
+     * @param $pid
+     * @return array
+     */
+    protected static function build_tree($pid){
+        $data = self::find()->asArray()->all();
+        $childs = self::findChild($data,$pid);
+        foreach($childs as $key=>$value){
+            $rec = self::build_tree($value['id']);
+            if($rec != null){
+                $childs[$key]['childs'] = $rec;
+            }
+        }
+        return $childs;
     }
 }

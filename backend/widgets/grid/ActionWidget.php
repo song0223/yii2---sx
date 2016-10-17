@@ -21,6 +21,14 @@ class ActionWidget extends ActionColumn
      */
     protected function initDefaultButtons()
     {
+        if (!isset($this->buttons['create'])) {
+            $this->buttons['create'] = function ($url, $model, $key) {
+                return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
+                    'title' => Yii::t('app','Look'),
+                    'class' => 'btn btn-default btn-xs'
+                ]);
+            };
+        }
         if (!isset($this->buttons['view'])) {
             $this->buttons['view'] = function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-eye-open"></span>', $url, [

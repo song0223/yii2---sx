@@ -2,9 +2,12 @@
 
 namespace backend\modules\post\controllers;
 
+use common\widgets\MessagePrompt;
 use Yii;
 use common\models\PostMeta;
 use backend\modules\post\models\search\PostMetaSearch;
+use yii\data\ActiveDataProvider;
+use yii\data\ArrayDataProvider;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
@@ -35,11 +38,11 @@ class MetaController extends Controller
      */
     public function actionIndex()
     {
-        $searchModel = new PostMetaSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-    
+        $dataProvider = new ArrayDataProvider([
+            'allModels' => PostMeta::getTrees(),
+        ]);
+
         return $this->render('index', [
-            'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
@@ -63,9 +66,14 @@ class MetaController extends Controller
      */
     public function actionCreate()
     {
+        $id = Yii::$app->request->get('id');
         $model = new PostMeta();
+        if($id){
+            $model->parent = $id;
+        }
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -85,6 +93,7 @@ class MetaController extends Controller
         $model = $this->findModel($id);
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -102,7 +111,7 @@ class MetaController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
         return $this->redirect(['index']);
     }
 
