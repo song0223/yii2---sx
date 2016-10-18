@@ -68,7 +68,7 @@ $isPost = ($this->context->module->id == 'post')?true:false;
                     ['label' => '发布文章', 'icon' => 'fa fa-circle-o', 'url' => Url::to('/post/default/create'),],
                     ['label' => '回收站', 'icon' => 'fa fa-circle-o', 'url' => Url::to('/post/default/recycle'),],
                     ['label' => '分类管理', 'icon' => 'fa fa-circle-o', 'url' => Url::to('/post/meta'),],
-                    ['label' => '评论管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
+                    ['label' => '评论管理', 'icon' => 'fa fa-circle-o', 'url' => Url::to('/post/comment'),],
                     ['label' => '留言板', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
                     ['label' => '单页管理', 'icon' => 'fa fa-circle-o', 'url' => ['/debug'],],
                 ],

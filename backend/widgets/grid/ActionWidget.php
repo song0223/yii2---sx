@@ -24,7 +24,7 @@ class ActionWidget extends ActionColumn
         if (!isset($this->buttons['create'])) {
             $this->buttons['create'] = function ($url, $model, $key) {
                 return Html::a('<span class="glyphicon glyphicon-plus"></span>', $url, [
-                    'title' => Yii::t('app','Look'),
+                    'title' => Yii::t('app','create'),
                     'class' => 'btn btn-default btn-xs'
                 ]);
             };

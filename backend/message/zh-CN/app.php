@@ -79,4 +79,6 @@
                 'Post Metas' => '分类列表',
                 'Create Post Meta' => '新增分类',
                 'Update Post Meta' => '修改分类',
+                'Post Comments' => '评论',
+                'create' => '新增',
         ];

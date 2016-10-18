@@ -226,4 +226,12 @@ class Post extends \yii\db\ActiveRecord
         return explode(',',$this->tags);
     }
 
+    /**
+     * 根据id获取帖子
+     * @param $id
+     * @return null|static
+     */
+    public static function getPostById($id){
+        return self::findOne($id);
+    }
 }
