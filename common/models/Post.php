@@ -107,7 +107,11 @@ class Post extends \yii\db\ActiveRecord
                     self::EVENT_BEFORE_UPDATE => 'tags',
                 ],
                 'value' => function($event){
-                    return $this->addTags($this->tags);
+                    if(!empty($this->tags)){
+                        return $this->addTags($this->tags);
+                    }else{
+                        return false;
+                    }
                 }
             ],
             //自动填充时间

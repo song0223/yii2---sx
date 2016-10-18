@@ -12,7 +12,7 @@ use Yii;
 
 class Topic extends Post
 {
-    const TYPE = 'topic';
+    const TYPE = Post::TOPIC_TECHNICAL;
 
     //public $scenario = 'topic';
 

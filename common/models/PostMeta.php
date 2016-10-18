@@ -3,6 +3,7 @@
 namespace common\models;
 
 use Yii;
+use yii\behaviors\TimestampBehavior;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -28,7 +29,15 @@ class PostMeta extends \yii\db\ActiveRecord
     {
         return '{{%post_meta}}';
     }
-
+    /**
+     * @inheritdoc
+     */
+    public function behaviors(){
+        return [
+            //自动填充时间
+            TimestampBehavior::className(),
+        ];
+    }
     /**
      * @inheritdoc
      */
@@ -158,5 +167,14 @@ class PostMeta extends \yii\db\ActiveRecord
             }
         }
         return $childs;
+    }
+
+    public function afterDelete(){
+        return self::deleteAll('parent = :id',[':id'=>$this->id]);
+    }
+
+    public static function updateCount($id){
+        $model = self::findOne($id);
+        return $model->updateCounters(['count'=>1],['id'=>$id]);
     }
 }

@@ -74,6 +74,7 @@ class TopicSearch extends Topic
             'order' => $this->order,
             //'created_at' => $this->created_at,
             'updated_at' => $this->updated_at,
+            'type' => Topic::TYPE,
         ]);
         $query->andFilterWhere(['like', 'title', $this->title])
             ->andFilterWhere(['like', 'author', $this->author])
@@ -81,8 +82,7 @@ class TopicSearch extends Topic
             ->andFilterWhere(['like', 'image', $this->image])
             ->andFilterWhere(['like', 'content', $this->content])
             ->andFilterWhere(['like', 'tags', $this->tags])
-            ->andFilterWhere(['like', 'last_comment_name', $this->last_comment_name])
-            ->andFilterWhere(['like', 'type', $this->type]);
+            ->andFilterWhere(['like', 'last_comment_name', $this->last_comment_name]);
         //时间区间搜索
         TimeSectionSearch::andTimeSection($query, 'created_at', $this->created_at);
         return $dataProvider;

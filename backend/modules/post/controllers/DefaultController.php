@@ -2,6 +2,7 @@
 
 namespace backend\modules\post\controllers;
 
+use common\models\PostMeta;
 use common\models\PostTag;
 use common\widgets\MessagePrompt;
 use Yii;
@@ -70,8 +71,10 @@ class DefaultController extends Controller
         $model = new Topic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
-            return $this->redirect(['view', 'id' => $model->id]);
+            if(PostMeta::updateCount($model->post_meta_id)){
+                MessagePrompt::setSucMsg(Yii::t('app','Successful operation！'));
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
