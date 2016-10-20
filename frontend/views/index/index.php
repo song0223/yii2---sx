@@ -26,7 +26,7 @@ $this->title = Yii::t('app','WebTitle');
             <div class="panel-body tag-cloud">
                 <?= Html::a(HtmlPurifier::process(Markdown::process($value['excerpt'], 'gfm')),Url::to(['post/default/view','id'=>$value['id']])); ?>
             </div>
-            <div class="panel-footer">
+            <div class="panel-footer" style="background-color: transparent">
                 <span class="title-info opts">
                     <?php
                         echo Html::a(

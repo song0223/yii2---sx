@@ -36,7 +36,7 @@ use common\models\PostTag;
                 ]
             ])
         ?>
-    <?= $form->field($model,$model::$formName)->widget(\common\widgets\SelectInput::className()) ?>
+    <?= $form->field($model,'tags')->widget(\common\widgets\SelectInput::className()) ?>
         <div class="form-group">
             <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
         </div>

@@ -204,12 +204,16 @@ class Post extends \yii\db\ActiveRecord
      *  最后回复更新
      *
      */
-    public function finalReplyUpdate($username = ''){
-            $this->setAttributes([
-                'last_comment_time' => time(),
-                'last_comment_name' => $username
-            ]);
-        return $this->save();
+    public function finalReplyUpdate($id,$username = ''){
+        return $this->updateAll([
+            'last_comment_name' => $username,
+            'last_comment_time' => time(),
+        ],['id'=>$id]);
+//            $model->setAttributes([
+//                'last_comment_time' => time(),
+//                'last_comment_name' => $username
+//            ]);
+        //return $this->save();
     }
 
     /*

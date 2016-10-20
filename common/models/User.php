@@ -236,4 +236,9 @@ class User extends ActiveRecord implements IdentityInterface
             'created_at' => Yii::t('app', 'Created At'),
         ];
     }
+
+
+    public static function isSuperAdmin($username){
+        return self::find()->where(['username'=>$username,'role'=>self::USER_BACKEND])->one();
+    }
 }

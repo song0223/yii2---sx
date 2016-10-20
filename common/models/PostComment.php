@@ -4,7 +4,8 @@ namespace common\models;
 
 use common\models\sxhelps\SxHelps;
 use Yii;
-
+use yii\behaviors\TimestampBehavior;
+use frontend\modules\post\models\Topic;
 /**
  * This is the model class for table "{{%post_comment}}".
  *
@@ -18,6 +19,8 @@ use Yii;
  * @property string $updated_at
  * @property string $like_count
  * @property string $ip
+ *
+ * @property Topic $topic
  */
 class PostComment extends \yii\db\ActiveRecord
 {
@@ -30,6 +33,12 @@ class PostComment extends \yii\db\ActiveRecord
             self::DELETE_T => '删除',
         ];
         return SxHelps::getItems($item ,$key);
+    }
+
+    public function behaviors(){
+        return [
+            TimestampBehavior::className(),
+        ];
     }
     /**
      * @inheritdoc
@@ -69,5 +78,22 @@ class PostComment extends \yii\db\ActiveRecord
             'like_count' => '喜欢数',
             'ip' => 'Ip',
         ];
+    }
+
+    /**
+     * 获取帖子下的所有回复
+     * @param $pid
+     * @return array|\yii\db\ActiveRecord[]
+     */
+    public static function getCommentByPid($pid){
+        return self::find()->where(['post_id'=>$pid])->all();
+    }
+
+    public function getUser(){
+        return self::hasOne(User::className(),['id'=>'user_id']);
+    }
+
+    public function afterSave($insert,$changedAttributes){
+
     }
 }

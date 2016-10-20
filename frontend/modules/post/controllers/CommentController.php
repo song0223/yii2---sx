@@ -2,22 +2,19 @@
 
 namespace frontend\modules\post\controllers;
 
-use common\models\PostComment;
-use common\models\PostMeta;
-use common\models\PostTag;
+use common\widgets\MessagePrompt;
 use frontend\modules\post\models\Topic;
 use Yii;
+use common\models\postComment;
 use yii\data\ActiveDataProvider;
-use yii\data\ArrayDataProvider;
-use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
 /**
- * DefaultController implements the CRUD actions for Post model.
+ * CommentController implements the CRUD actions for postComment model.
  */
-class DefaultController extends Controller
+class CommentController extends Controller
 {
     /**
      * @inheritdoc
@@ -35,13 +32,13 @@ class DefaultController extends Controller
     }
 
     /**
-     * Lists all Post models.
+     * Lists all postComment models.
      * @return mixed
      */
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Topic::find(),
+            'query' => postComment::find(),
         ]);
 
         return $this->render('index', [
@@ -50,39 +47,35 @@ class DefaultController extends Controller
     }
 
     /**
-     * 帖子详情页
+     * Displays a single postComment model.
      * @param integer $id
      * @return mixed
      */
     public function actionView($id)
     {
-        $model = $this->findModel($id);
-
-        //文章浏览数+1
-        $model->updateAllCounters(['view_count' => 1] , ['id' => $id]);
-
-        //帖子回复
-        $dataProvider = new ArrayDataProvider([
-            'allModels' => PostComment::getCommentByPid($model->id),
-        ]);
         return $this->render('view', [
-            'model' => $model,
-            'dataProvider' => $dataProvider,
-            'comment' => new PostComment()
+            'model' => $this->findModel($id),
         ]);
     }
 
     /**
-     * Creates a new Post model.
+     * Creates a new postComment model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate($id)
     {
-        $model = new Topic();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $model = new postComment();
+        if ($model->load(Yii::$app->request->post())) {
+            $model->user_id = Yii::$app->user->id;
+            $model->post_id = $id;
+            $model->ip = Yii::$app->request->getUserIP();
+            if((new Topic())->finalReplyUpdate($id,Yii::$app->user->identity->username)&&$model->save()){
+                MessagePrompt::setSucMsg('回复成功！');
+                return $this->redirect(['/post/default/view', 'id' => $id]);
+            }else{
+                MessagePrompt::setErrorMsg($model->getErrors());
+            }
         } else {
             return $this->render('create', [
                 'model' => $model,
@@ -91,7 +84,7 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Post model.
+     * Updates an existing postComment model.
      * If update is successful, the browser will be redirected to the 'view' page.
      * @param integer $id
      * @return mixed
@@ -99,8 +92,8 @@ class DefaultController extends Controller
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-        $model->tags = explode(',',$model->tags);
-        if ($model->load(Yii::$app->request->post()) && $model->save() ) {
+
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -110,47 +103,31 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Post model.
+     * Deletes an existing postComment model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
      * @param integer $id
      * @return mixed
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        PostComment::updateAll(['status'=>0],['id'=>$id]);
 
         return $this->redirect(['index']);
     }
 
     /**
-     * Finds the Post model based on its primary key value.
+     * Finds the postComment model based on its primary key value.
      * If the model is not found, a 404 HTTP exception will be thrown.
      * @param integer $id
-     * @return Topic the loaded model
+     * @return postComment the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
     protected function findModel($id)
     {
-        if (($model = Topic::findOne($id)) !== null) {
+        if (($model = postComment::findOne($id)) !== null) {
             return $model;
         } else {
             throw new NotFoundHttpException('The requested page does not exist.');
         }
-    }
-
-    public function actionGetTags(){
-       if(Yii::$app->request->isAjax){
-            $meta = Yii::$app->request->get('meta');
-            return PostTag::getTagsByMeta($meta, null);
-        }
-    }
-
-    /**
-     * @param $q
-     * @param $meta
-     * @return array
-     */
-    public function actionTags($q, $meta){
-        return PostTag::getAjaxTags($meta);
     }
 }

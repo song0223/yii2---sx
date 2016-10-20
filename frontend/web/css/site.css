@@ -160,3 +160,16 @@ a.desc:after {
 .panel-body pre {
     padding: 0;
 }
+.topic-view .info {
+    color: #c0c0c0;
+    font-size: 12px;
+}
+.list-group-item {
+    border: none;
+    margin-bottom: 0;
+    border-bottom: 1px solid #ddd;
+}
+.deleted {
+    text-decoration: line-through;
+    color: #ce7575;
+}

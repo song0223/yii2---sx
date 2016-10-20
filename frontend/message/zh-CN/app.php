@@ -38,4 +38,6 @@
                 'mainContribute' => '分享',
                 'mainPlaceholder' => '搜索...',
                 'mainDataContent' => '请输入要搜索的关键词！',
+
+                'Received {0} reply' => '共收到 {0} 条回复',
         ];
