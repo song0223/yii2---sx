@@ -8,6 +8,7 @@ use yii\helpers\Url;
 use common\models\PostMeta;
 use common\models\User;
 use common\models\sxhelps\SxHelps;
+use frontend\modules\post\models\Topic;
 /* @var $this yii\web\View */
 /* @var $model common\models\Post */
 
@@ -53,9 +54,9 @@ $this->title = $model->title;
                 '#',
                 [
                     'data-do' => 'like',
-                    'data-id' => $model->id,
-                    'data-type' => $model->type,
-                    'class' => 'active'
+                    'data-id' => $model['id'],
+                    'data-type' => Topic::TYPE,
+                    'class' => ($model->like) ? 'active': ''
                 ]
             );
             $hate = Html::a(
@@ -63,9 +64,9 @@ $this->title = $model->title;
                 '#',
                 [
                     'data-do' => 'hate',
-                    'data-id' => $model->id,
-                    'data-type' => $model->type,
-                    'class' => (1) ? 'active': ''
+                    'data-id' => $model['id'],
+                    'data-type' => Topic::TYPE,
+                    'class' => ($model->hate) ? 'active': ''
                 ]
             );
             $follow = Html::a(
@@ -73,9 +74,9 @@ $this->title = $model->title;
                 '#',
                 [
                     'data-do' => 'follow',
-                    'data-id' => $model->id,
-                    'data-type' => $model->type,
-                    'class' => (1) ? 'active': ''
+                    'data-id' => $model['id'],
+                    'data-type' => Topic::TYPE,
+                    'class' => ($model->follow) ? 'active': ''
                 ]
             );
             $thanks = Html::a(
@@ -83,9 +84,9 @@ $this->title = $model->title;
                 '#',
                 [
                     'data-do' => 'thanks',
-                    'data-id' => $model->id,
-                    'data-type' => $model->type,
-                    'class' => (1) ? 'active': ''
+                    'data-id' => $model['id'],
+                    'data-type' => Topic::TYPE,
+                    'class' => ($model->thanks) ? 'active': ''
                 ]
             );
             $favorite = Html::a(
@@ -93,13 +94,13 @@ $this->title = $model->title;
                 '#',
                 [
                     'data-do' => 'favorite',
-                    'data-id' => $model->id,
-                    'data-type' => $model->type,
-                    'class' => (1) ? 'active': ''
+                    'data-id' => $model['id'],
+                    'data-type' =>  Topic::TYPE,
+                    'class' => ($model->favorite) ? 'active': ''
                 ]
             );
 
-            if(1){
+            if($model->isOneself()){
                 echo Html::a(
                     Html::tag('i', '', ['class' => 'fa fa-thumbs-o-up']) . ' ' . Html::tag('span', $model->like_count) . ' 个赞',
                     'javascript:;'

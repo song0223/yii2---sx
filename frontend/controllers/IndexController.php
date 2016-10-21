@@ -3,6 +3,7 @@ namespace frontend\controllers;
 
 use common\models\Post;
 use Yii;
+use yii\data\ActiveDataProvider;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
@@ -69,8 +70,12 @@ class IndexController extends Controller
      */
     public function actionIndex()
     {
-        $topics = Post::find()->with('postMeta')->where(['status' => 1])->limit(10)->orderBy(['updated_at'=>SORT_DESC])->asArray()->all();
-        //$sql = "SELECT p.*,m.id mid FROM `qrqy_post` p LEFT JOIN `qrqy_post_meta` m on p.post_meta_id = m.id WHERE p.status=1 ORDER BY p.updated_at desc LIMIT 2";
+        $topics = new ActiveDataProvider([
+            'query' => Post::find()
+                ->where(['status' => 1])
+                ->limit(10)
+                ->orderBy(['updated_at'=>SORT_DESC])
+        ]);
         return $this->render('index',[
             'topics' => $topics
         ]);

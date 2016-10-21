@@ -238,4 +238,8 @@ class Post extends \yii\db\ActiveRecord
     public static function getPostById($id){
         return self::findOne($id);
     }
+
+    public function isOneself(){
+        return $this->user_id == Yii::$app->user->id;
+    }
 }

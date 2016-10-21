@@ -41,7 +41,10 @@ class DefaultController extends Controller
     public function actionIndex()
     {
         $dataProvider = new ActiveDataProvider([
-            'query' => Topic::find(),
+            'query' => Topic::find()
+                ->where(['status' => 1])
+                ->limit(10)
+                ->orderBy(['updated_at'=>SORT_DESC])
         ]);
 
         return $this->render('index', [
