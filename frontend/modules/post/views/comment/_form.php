@@ -11,7 +11,7 @@ use yii\widgets\ActiveForm;
 <div class="list-group-item">
 
     <?php $form = ActiveForm::begin([
-        'action' => '/post/comment/create?id='.Yii::$app->request->getQueryParam('id'),
+        'action' => '/post/comment/'.($model->isNewRecord ? 'create' : 'update').'?id='.Yii::$app->request->getQueryParam('id'),
         'id' => Yii::$app->request->getQueryParam('id')
     ]); ?>
 

@@ -4,7 +4,7 @@ namespace frontend\controllers;
 use Yii;
 use yii\base\InvalidParamException;
 use yii\web\BadRequestHttpException;
-use yii\web\Controller;
+use common\components\Controller;
 use yii\filters\VerbFilter;
 use yii\filters\AccessControl;
 use common\models\LoginForm;
@@ -97,10 +97,9 @@ class SiteController extends Controller
         if ($model->load(Yii::$app->request->post()) && $model->login()) {
             return $this->goBack();
         } else {
-            throw new ForbiddenHttpException('无法访问。');
-//            return $this->render('login', [
-//                'model' => $model,
-//            ]);
+            return $this->render('login', [
+                'model' => $model,
+            ]);
         }
     }
 
@@ -165,10 +164,9 @@ class SiteController extends Controller
                 }
             }
         }
-        throw new ForbiddenHttpException('无法访问。');
-//        return $this->render('signup', [
-//            'model' => $model,
-//        ]);
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
     /**

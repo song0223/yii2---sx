@@ -18,6 +18,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'resources/robot/js/spig.js',
+        'js/action.js',
     ];
     public $depends = [
         'yii\web\YiiAsset',

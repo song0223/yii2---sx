@@ -51,7 +51,7 @@ $this->title = $model->title;
             <?php
             $like = Html::a(
                 Html::tag('i', '', ['class' => 'fa fa-thumbs-o-up']) . ' ' . Html::tag('span', $model->like_count) . ' 个赞',
-                '#',
+                'javascript:void(0)',
                 [
                     'data-do' => 'like',
                     'data-id' => $model['id'],
@@ -61,7 +61,7 @@ $this->title = $model->title;
             );
             $hate = Html::a(
                 Html::tag('i', '', ['class' => 'fa fa-thumbs-o-down']) . ' 踩',
-                '#',
+                'javascript:void(0)',
                 [
                     'data-do' => 'hate',
                     'data-id' => $model['id'],
@@ -71,7 +71,7 @@ $this->title = $model->title;
             );
             $follow = Html::a(
                 Html::tag('i', '', ['class' => 'fa fa-eye']) . ' 关注',
-                '#',
+                'javascript:void(0)',
                 [
                     'data-do' => 'follow',
                     'data-id' => $model['id'],
@@ -81,7 +81,7 @@ $this->title = $model->title;
             );
             $thanks = Html::a(
                 Html::tag('i', '', ['class' => 'fa fa-heart-o']) . ' 感谢',
-                '#',
+                'javascript:void(0)',
                 [
                     'data-do' => 'thanks',
                     'data-id' => $model['id'],
@@ -91,7 +91,7 @@ $this->title = $model->title;
             );
             $favorite = Html::a(
                 Html::tag('i', '', ['class' => 'fa fa-bookmark']) . ' 收藏',
-                '#',
+                'javascript:void(0)',
                 [
                     'data-do' => 'favorite',
                     'data-id' => $model['id'],
@@ -109,21 +109,20 @@ $this->title = $model->title;
                 echo $like, $hate;
                 echo $thanks;
             }
-            echo $follow;
+            //echo $follow;
             echo $favorite;
-
-
             ?>
-            <?php if(!Yii::$app->user->isGuest): ?>
-            <?php if (User::isSuperAdmin(Yii::$app->user->identity->username)): ?>
-                <?php
-                    $class = $model->status == 2 ? ['class' => 'active'] : null;
-                    echo Html::a(
-                        Html::tag('i', '', ['class' => 'fa fa-trophy']) . ' 加精',
-                        ['/post/default/excellent', 'id' => $model->id],
-                        $class
-                    );
-                ?>
+            <?php
+            if(User::isSuperAdmin(Yii::$app->user->identity->username)) {
+                $class = $model->status == 2 ? ['class' => 'active'] : null;
+                echo Html::a(
+                    Html::tag('i', '', ['class' => 'fa fa-trophy']) . ' 加精',
+                    ['/post/default/excellent', 'id' => $model->id],
+                    $class
+                );
+            }
+            ?>
+            <?php if ($model->isOneself() || User::isSuperAdmin(Yii::$app->user->identity->username)): ?>
                 <span class="pull-right">
                         <?= Html::a(
                             Html::tag('i', '', ['class' => 'fa fa-pencil']) . ' 修改',
@@ -142,7 +141,6 @@ $this->title = $model->title;
                             ) ?>
                         <?php endif?>
                     </span>
-            <?php endif ?>
             <?php endif ?>
         </div>
     </div>

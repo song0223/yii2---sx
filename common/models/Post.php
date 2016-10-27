@@ -35,7 +35,7 @@ use yii\db\ActiveRecord;
  * @property string $created_at
  * @property string $updated_at
  */
-class Post extends \yii\db\ActiveRecord
+class Post extends \common\components\ActiveRecord
 {
     const TOPIC_TECHNICAL = 'topic';
     /**
@@ -239,7 +239,4 @@ class Post extends \yii\db\ActiveRecord
         return self::findOne($id);
     }
 
-    public function isOneself(){
-        return $this->user_id == Yii::$app->user->id;
-    }
 }

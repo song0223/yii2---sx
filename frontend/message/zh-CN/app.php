@@ -14,8 +14,9 @@
                 'Signup' => '注册',
                 'Login' => '登录',
                 'rememberMe' => '记住我',
-                'resetPwd' => '忘记密码？',
+                'resetPwd' => '忘记密码 ?',
                 'errorPwd' => '账户或者密码错误',
+                'Request password reset' => '找回密码',
 
                 //登录注册
                 'username' => '用户名',
@@ -40,4 +41,6 @@
                 'mainDataContent' => '请输入要搜索的关键词！',
 
                 'Received {0} reply' => '共收到 {0} 条回复',
+
+                'Are you sure you want to delete this?' => '您确定要删除该项？'
         ];

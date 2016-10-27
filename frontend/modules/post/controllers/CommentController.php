@@ -7,7 +7,7 @@ use frontend\modules\post\models\Topic;
 use Yii;
 use common\models\postComment;
 use yii\data\ActiveDataProvider;
-use yii\web\Controller;
+use common\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -70,7 +70,7 @@ class CommentController extends Controller
             $model->user_id = Yii::$app->user->id;
             $model->post_id = $id;
             $model->ip = Yii::$app->request->getUserIP();
-            if((new Topic())->finalReplyUpdate($id,Yii::$app->user->identity->username)&&$model->save()){
+            if((new Topic())->finalReplyUpdate($id,$this->_user_name)&&$model->save()){
                 MessagePrompt::setSucMsg('回复成功！');
                 return $this->redirect(['/post/default/view', 'id' => $id]);
             }else{
@@ -93,8 +93,13 @@ class CommentController extends Controller
     {
         $model = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($model->load(Yii::$app->request->post())) {
+            if($model->save()){
+                $topic = new Topic();
+                $topic->finalReplyUpdate($model->post_id,$this->_user_name);
+                MessagePrompt::setSucMsg('修改成功！');
+                return $this->redirect(['/post/default/view', 'id' => $model->post_id]);
+            }
         } else {
             return $this->render('update', [
                 'model' => $model,
@@ -110,9 +115,10 @@ class CommentController extends Controller
      */
     public function actionDelete($id)
     {
-        PostComment::updateAll(['status'=>0],['id'=>$id]);
-
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        $model::updateAll(['status'=>0],['id'=>$id]);
+        MessagePrompt::setSucMsg('删除成功！');
+        return $this->redirect(['/post/default/view', 'id' => $model->post_id]);
     }
 
     /**

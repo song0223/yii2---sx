@@ -2,7 +2,9 @@
 
 namespace common\models;
 
+use common\components\ActiveRecord;
 use common\models\sxhelps\SxHelps;
+use common\services\UserService;
 use Yii;
 use yii\behaviors\TimestampBehavior;
 use frontend\modules\post\models\Topic;
@@ -22,9 +24,10 @@ use frontend\modules\post\models\Topic;
  *
  * @property Topic $topic
  */
-class PostComment extends \yii\db\ActiveRecord
+class PostComment extends ActiveRecord
 {
 
+    const TYPE = 'comment';
     const DELETE_T = 0;
     const ACTIVE_T = 1;
     public static function statuMap($key = null){
@@ -95,5 +98,10 @@ class PostComment extends \yii\db\ActiveRecord
 
     public function afterSave($insert,$changedAttributes){
 
+    }
+
+    public function getLike(){
+        $model = new UserService();
+        return $model->userAction(self::TYPE, 'like', $this->id);
     }
 }

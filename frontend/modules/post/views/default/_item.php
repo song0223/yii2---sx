@@ -22,7 +22,7 @@ use frontend\modules\post\models\Topic;
         </div>
         <div class="panel-footer" style="background-color: transparent">
                 <span class="title-info opts">
-                    1
+1
                 </span>
                 <span class="title-info text-right1">
                     <?php

@@ -48,9 +48,9 @@ $contributeActive = ($controller == 'contribute') ? true : false;
 //        ['label' => Yii::t('app','Contact'), 'url' => ['/site/contact']],
 //    ];
     if (Yii::$app->user->isGuest) {
-        $menuItems[] = ['label' => Yii::t('app','Login'), 'url' => '#', 'linkOptions' =>['id'=>'login-class']];
-        $menuItems[] = ['label' => Yii::t('app','Signup'), 'url'=>'#', 'linkOptions' =>['id'=>'signup-class']];
-        echo Yii::$app->runAction('site/login-view');
+        $menuItems[] = ['label' => Yii::t('app','Login'), 'url' => ['/site/login'], 'linkOptions' =>['id'=>'login-class']];
+        $menuItems[] = ['label' => Yii::t('app','Signup'), 'url'=>['/site/signup'], 'linkOptions' =>['id'=>'signup-class']];
+        //echo Yii::$app->runAction('site/login-view');
     } else {
 //        $menuItems[] = '<li>'
 //            . Html::beginForm(['/site/logout'], 'post')
