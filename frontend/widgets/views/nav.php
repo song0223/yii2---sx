@@ -8,16 +8,13 @@
 use yii\bootstrap\NavBar;
 use yii\bootstrap\Nav;
 use yii\web\Controller;
+use common\models\PostMeta;
+use yii\helpers\Url;
 
 $controller = Yii::$app->controller->id;
 $action = Yii::$app->controller->action->id;
-$hotActive = ($controller == 'hot') ? true : false;
-$videoActive = ($controller == 'video') ? true : false;
-$textActive = ($controller == 'text') ? true : false;
-$historyActive = ($controller == 'history') ? true : false;
-$picActive = ($controller == 'pic') ? true : false;
-$textnewActive = ($controller == 'textnew') ? true : false;
-$contributeActive = ($controller == 'contribute') ? true : false;
+//$hotActive = ($controller == 'hot') ? true : false;
+$mid = Yii::$app->request->getQueryParam('meta_id');
     NavBar::begin([
         'brandLabel' => Yii::t('app','WebTitle'),
         'brandUrl' => Yii::$app->homeUrl,
@@ -25,17 +22,18 @@ $contributeActive = ($controller == 'contribute') ? true : false;
             'class' => 'navbar navbar-default',
         ],
     ]);
+    $tree = [];
+    foreach(PostMeta::getClassifying(1) as $k=>$v){
+        $tree[$k] = [
+            'label' => $v,
+            'url' => Url::to(['/post/default/index','meta_id'=>$k]),
+            'active' => ($mid == $k) ? true :false
+        ];
+    }
+
     echo Nav::widget([
         'options' => ['class' => 'nav navbar-nav'],
-        'items' => [
-            ['label' => Yii::t('app','mainPHP'), 'url' => ['/hot/index'],'active' => $hotActive],
-            ['label' => Yii::t('app','mainDIVCSS'),'url' => ['/video/about'],'active' => $videoActive],
-            ['label' => Yii::t('app','mainJS'),'url' => ['/text/about'],'active' => $textActive],
-            ['label' => Yii::t('app','mainMySql'),'url' => ['/history/about'],'active' => $historyActive],
-            ['label' => Yii::t('app','mainLinux'),'url' => ['/pic/about'],'active' => $picActive],
-            ['label' => Yii::t('app','mainTextnew'),'url' => ['/textnew/about'],'active' => $textnewActive],
-            ['label' => Yii::t('app','mainContribute'),'url' => ['/contribute/about'],'active' => $contributeActive],
-        ],
+        'items' => $tree,
     ]);
     echo '<form class="navbar-form navbar-left" role="search" action="/search" method="get">
                 <div class="form-group">

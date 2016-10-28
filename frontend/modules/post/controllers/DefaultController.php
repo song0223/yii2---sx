@@ -4,13 +4,15 @@ namespace frontend\modules\post\controllers;
 
 use common\models\PostComment;
 use common\models\PostMeta;
+use common\models\PostSearch;
 use common\models\PostTag;
 use frontend\modules\post\models\Topic;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
-use yii\web\Controller;
+use common\components\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -40,15 +42,33 @@ class DefaultController extends Controller
      */
     public function actionIndex()
     {
-        $dataProvider = new ActiveDataProvider([
-            'query' => Topic::find()
-                ->where(['status' => 1])
-                ->limit(10)
-                ->orderBy(['updated_at'=>SORT_DESC])
-        ]);
+        $searchModel = new PostSearch();
+        $params = Yii::$app->request->queryParams;
+        empty($params['tag']) ?: $params['PostSearch']['tags'] = $params['tag'];
+        if (isset($params['node'])) {
+            $postMeta = PostMeta::findOne(['alias' => $params['node']]);
+            ($postMeta) ? $params['PostSearch']['post_meta_id'] = $postMeta->id : '';
+        }
+        if(isset($params['meta_id'])){
+            $mid = PostMeta::find()->select('id')->where(['parent'=>$params['meta_id']])->asArray()->all();
+            if(!empty($mid)){
+                $params['PostSearch']['post_meta_id'] = ArrayHelper::map($mid,'id','id');
+            }else{
+                $params['PostSearch']['post_meta_id'] = $params['meta_id'];
+            }
+        }
+        $dataProvider = $searchModel->search($params);
 
+        $params1 = Yii::$app->request->queryParams;
+        foreach($params1 as $k=>$v){
+            $params1['tag'] = $v;
+            if($k == 'meta_id'){
+                $params1['tag'] = PostMeta::getNameByid($v);
+            }
+        }
         return $this->render('index', [
             'dataProvider' => $dataProvider,
+            'tag' => $params1
         ]);
     }
 

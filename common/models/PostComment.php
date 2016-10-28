@@ -83,6 +83,18 @@ class PostComment extends ActiveRecord
         ];
     }
 
+    public function beforeSave($insert)
+    {
+        if (parent::beforeSave($insert)) {
+            if($insert){//插入操作
+                Topic::updateAllCounters(['comment_count'=> 1],['id'=> $this->post_id]);
+            }
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     /**
      * 获取帖子下的所有回复
      * @param $pid

@@ -73,7 +73,7 @@ class PostMeta extends \yii\db\ActiveRecord
     /*
      * 获取分类
      */
-    public static function getClassifying(){
+    public static function getClassifying($top = null){
 /*        $sql = "SELECT `id`,`name`
                 FROM `qrqy_post_meta`
                 WHERE `parent`=0";
@@ -88,6 +88,9 @@ class PostMeta extends \yii\db\ActiveRecord
         $class_ifying = ArrayHelper::map(
             self::find()->where(['parent'=>0])->orWhere(['parent'=>null])->all(),'id','name'
         );
+        if($top){
+            return $class_ifying;
+        }
         $classifying = [];
         foreach($class_ifying as $k=>$v){
             $classifying[$v] = ArrayHelper::map(

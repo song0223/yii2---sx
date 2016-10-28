@@ -10,13 +10,12 @@ use yii\helpers\HtmlPurifier;
 use yii\helpers\Markdown;
 use yii\helpers\Url;
 use common\models\sxhelps\SxHelps;
-use frontend\modules\post\models\Topic;
 
 /* @var $model common\models\post */
 ?>
 <div class="panel-heading">
     <?=$model['title']?>
-        </div>
+</div>
         <div class="panel-body tag-cloud">
             <?= Html::a(HtmlPurifier::process(Markdown::process($model['excerpt'], 'gfm')),Url::to(['/post/default/view','id'=>$model['id']])); ?>
         </div>
@@ -34,3 +33,4 @@ use frontend\modules\post\models\Topic;
                     ?>
                 </span>
         </div>
+

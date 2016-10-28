@@ -238,7 +238,11 @@ class User extends ActiveRecord implements IdentityInterface
     }
 
 
-    public static function isSuperAdmin($username){
-        return self::find()->where(['username'=>$username,'role'=>self::USER_BACKEND])->one();
+    public static function isSuperAdmin(){
+        //$username = Yii::$app->user->identity->username;
+        if(empty(Yii::$app->user->identity->username)){
+            return false;
+        }
+        return self::find()->where(['username'=>Yii::$app->user->identity->username,'role'=>self::USER_BACKEND])->one();
     }
 }

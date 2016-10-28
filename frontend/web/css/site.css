@@ -173,3 +173,6 @@ a.desc:after {
     text-decoration: line-through;
     color: #ce7575;
 }
+.list-group .panel{
+    margin-bottom: 0;
+}

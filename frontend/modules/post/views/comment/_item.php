@@ -40,7 +40,7 @@ $index += +1 + $widget->dataProvider->pagination->page * $widget->dataProvider->
                      ),
                      ['class'=>'opts pull-right']
                  );
-                if ($model->isOneself() || User::isSuperAdmin(Yii::$app->user->identity->username)){
+                if ($model->isOneself() || User::isSuperAdmin()){
                     echo $operation;
                 }
                 echo Html::a(

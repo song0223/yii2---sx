@@ -113,7 +113,7 @@ $this->title = $model->title;
             echo $favorite;
             ?>
             <?php
-            if(User::isSuperAdmin(Yii::$app->user->identity->username)) {
+            if(User::isSuperAdmin()) {
                 $class = $model->status == 2 ? ['class' => 'active'] : null;
                 echo Html::a(
                     Html::tag('i', '', ['class' => 'fa fa-trophy']) . ' 加精',
@@ -122,7 +122,7 @@ $this->title = $model->title;
                 );
             }
             ?>
-            <?php if ($model->isOneself() || User::isSuperAdmin(Yii::$app->user->identity->username)): ?>
+            <?php if ($model->isOneself() || User::isSuperAdmin()): ?>
                 <span class="pull-right">
                         <?= Html::a(
                             Html::tag('i', '', ['class' => 'fa fa-pencil']) . ' 修改',

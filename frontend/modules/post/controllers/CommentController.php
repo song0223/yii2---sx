@@ -116,8 +116,9 @@ class CommentController extends Controller
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
-        $model::updateAll(['status'=>0],['id'=>$id]);
-        MessagePrompt::setSucMsg('删除成功！');
+        if($model::updateAll(['status'=>0],['id'=>$id])){
+            MessagePrompt::setSucMsg('删除成功！');
+        }
         return $this->redirect(['/post/default/view', 'id' => $model->post_id]);
     }
 

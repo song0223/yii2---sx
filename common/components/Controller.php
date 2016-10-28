@@ -22,7 +22,9 @@ class Controller extends \yii\web\Controller
     public function init(){
         parent::init();
         $this->_user_id = Yii::$app->user->id;
-        $this->_user_name = Yii::$app->user->identity->username;
+        if(!empty(Yii::$app->user->identity->username)){
+            $this->_user_name = Yii::$app->user->identity->username;
+        }
     }
 
     public function behaviors()

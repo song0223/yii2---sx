@@ -42,5 +42,9 @@
 
                 'Received {0} reply' => '共收到 {0} 条回复',
 
-                'Are you sure you want to delete this?' => '您确定要删除该项？'
+                'Are you sure you want to delete this?' => '您确定要删除该项？',
+
+                'Create' => '发布',
+                'Create Post' => '发布帖子',
+                'Update' => '修改',
         ];
