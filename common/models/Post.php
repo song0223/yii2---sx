@@ -239,4 +239,8 @@ class Post extends \common\components\ActiveRecord
         return self::findOne($id);
     }
 
+    public function getUser(){
+        return self::hasOne(User::className(),['id' => 'user_id']);
+    }
+
 }

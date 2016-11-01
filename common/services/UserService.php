@@ -9,8 +9,8 @@
 namespace common\services;
 
 use common\models\PostComment;
+use common\models\UserInfo;
 use common\models\UserMeta;
-use frontend\modules\post\models\Topic;
 use Yii;
 class UserService
 {
@@ -55,6 +55,9 @@ class UserService
                 if($result){
                     //帖子操作数+1
                     $model::updateAllCounters([$do.'_count' =>1],['id' => $model->id]);
+                    if($do != 'favorite'){
+                        UserInfo::updateAllCounters([$do.'_count' =>1],['user_id' => $model->user_id]);
+                    }
                 }
                 return [$result, $model];
             }

@@ -24,11 +24,15 @@ $index += +1 + $widget->dataProvider->pagination->page * $widget->dataProvider->
     </div>
     <div class="infos" id="comment<?= $index ?>">
         <div class="media-heading meta info opts">
-            <?php echo  Html::a($model->user['username'],'#',['class'=>'author']).'•'.
+            <?php echo  Html::a($model->user['username'],
+                    Url::to(['/user/default/index','username'=>$model->user->username]),['class'=>'author']).'•'.
                  Html::a("#{$index}","#comment{$index}",['class'=>'comment-floor']).'•'.
-                 Html::tag('addr',SxHelps::get_timejq($model->created_at),['title'=>date('Y-m-d H:i:s',$model->created_at)]);
+                 Html::tag('addr',SxHelps::get_timejq($model->created_at),
+                     ['title'=>date('Y-m-d H:i:s',$model->created_at)]
+                 );
                  $operation = Html::tag('span',
-                     Html::a('',Url::to(['/post/comment/update','id'=>$model->id]),['class'=>'fa fa-pencil','title'=>'修改回帖']).
+                     Html::a('',Url::to(['/post/comment/update','id'=>$model->id]),
+                         ['class'=>'fa fa-pencil','title'=>'修改回帖']).
                      Html::a('',Url::to(['/post/comment/delete','id'=>$model->id]),
                          [
                              'class'=>'fa fa-trash','title'=>'删除评论',
@@ -44,7 +48,8 @@ $index += +1 + $widget->dataProvider->pagination->page * $widget->dataProvider->
                     echo $operation;
                 }
                 echo Html::a(
-                    Html::tag('i', '', ['class' => 'fa fa-thumbs-o-up']) . ' ' . Html::tag('span', $model->like_count) . ' 个赞',
+                    Html::tag('i', '', ['class' => 'fa fa-thumbs-o-up']) . ' ' .
+                    Html::tag('span', $model->like_count) . ' 个赞',
                     'javascript:void(0)',
                     [
                         'data-do' => 'like',

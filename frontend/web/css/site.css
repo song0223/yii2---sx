@@ -3,7 +3,6 @@ body {
     height: 100%;
     background-color: #f0f0f0;
 }
-
 .wrap {
     min-height: 100%;
     height: auto;
@@ -175,4 +174,41 @@ a.desc:after {
 }
 .list-group .panel{
     margin-bottom: 0;
+}
+.follow-info {
+    border-top: 1px solid #f0f0f0;
+    text-align: center;
+    margin-top: 15px;
+    padding-top: 15px;
+}
+
+.follow-info a {
+    display: block;
+    text-decoration: none;
+}
+
+.follow-info a.text {
+    color: #999;
+}
+
+.follow-info a.counter {
+    font-size: 32px;
+    color: #5CB85C;
+}
+
+.tweet h1, .tweet h2, .tweet h3, .tweet h4 {
+    font-size: 14px;
+}
+
+.user-card {
+    margin-bottom: 15px;
+}
+
+.fade-info, .title-info {
+    color: #aaa;
+    font-size: 12px;
+}
+.panel-footer .read-info{
+    font-size: 13px;
+    color: #aaa;
 }

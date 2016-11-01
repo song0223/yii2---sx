@@ -73,4 +73,8 @@ class UserMeta extends ActiveRecord
             return $model->delete();
         }
     }
+
+    public function getFavoritePost(){
+        return self::hasOne(Post::className(),['id' => 'target_id']);
+    }
 }

@@ -15,7 +15,7 @@ class SignupForm extends Model
     public $email;
     public $password;
     public $repeatPassword;
-    public $verifyCode;
+    //public $verifyCode;
     public $file;
 
 
@@ -41,8 +41,8 @@ class SignupForm extends Model
 
             ['repeatPassword','compare','compareAttribute'=>'password'],
 
-            ['verifyCode', 'string', 'length' => 4],
-            ['verifyCode',Sxcaptcha::className()],
+            //['verifyCode', 'string', 'length' => 4],
+            //['verifyCode',Sxcaptcha::className()],
         ];
     }
 
@@ -72,7 +72,7 @@ class SignupForm extends Model
               'email' => Yii::t('app','email'),
               'password' => Yii::t('app','password'),
               'repeatPassword' => Yii::t('app','repeatPassword'),
-              'verifyCode' => Yii::t('app','verifyCode'),
+              //'verifyCode' => Yii::t('app','verifyCode'),
         ];
     }
 }

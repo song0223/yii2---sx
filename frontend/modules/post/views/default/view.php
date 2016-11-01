@@ -22,11 +22,11 @@ $this->title = $model->title;
                 <div class="info">
                     <?= Html::a(
                         PostMeta::getNameByid($model->post_meta_id),
-                        ['/post/default/index', 'node' => $model->post_meta_id],
+                        ['/post/default/index', 'meta_id' => $model->post_meta_id],
                         ['class' => 'node']
                     ) ?>
                     ·
-                    <?= Html::a(User::findIdentity($model->user_id)->username, ['/user/default/show', 'username' => $model->user_id]) ?>
+                    <?= Html::a($model->user->username, Url::to(['/user/default/index','username'=>$model->user->username]),[]) ?>
                     ·
                     于 <?= Html::tag('abbr', SxHelps::get_timejq($model->created_at), ['title' => date('Y-m-d H:i:s',$model->created_at)]) ?>发布
                     ·

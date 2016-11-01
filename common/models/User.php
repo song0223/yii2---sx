@@ -42,8 +42,8 @@ class User extends ActiveRecord implements IdentityInterface
 
     public static function role_map($key = null){
         $items = [
-            self::USER_FRONTEND => '前台用户',
-            self::USER_BACKEND => '后台用户',
+            self::USER_FRONTEND => '普通用户',
+            self::USER_BACKEND => '管理员',
             self::ROLE_SUPER_ADMIN => '超级管理员'
         ];
         return SxHelps::getItems($items,$key);
@@ -244,5 +244,29 @@ class User extends ActiveRecord implements IdentityInterface
             return false;
         }
         return self::find()->where(['username'=>Yii::$app->user->identity->username,'role'=>self::USER_BACKEND])->one();
+    }
+
+    /**
+     * @param bool $insert
+     * @param array $changedAttributes
+     */
+    public function afterSave($insert, $changedAttributes){
+        $time = time();
+        if($insert){
+            $userInfo = Yii::createObject([
+                'class' => UserInfo::className(),
+                'user_id' => $this->id,
+                'prev_login_time' => $time,
+                'created_at' => $time,
+                'updated_at' => $time,
+                'prev_login_ip' => Yii::$app->request->getUserIP()?:'127.0.0.1'
+            ]);
+            $userInfo->save();
+        }
+        parent::afterSave($insert, $changedAttributes);
+    }
+
+    public function getUserInfo(){
+        return self::hasOne(UserInfo::className(),['user_id' => 'id']);
     }
 }

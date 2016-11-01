@@ -58,11 +58,12 @@ $mid = Yii::$app->request->getQueryParam('meta_id');
 //            )
 //            . Html::endForm()
 //            . '</li>';
+        $username = Yii::$app->user->identity->username;
         $menuItems[] = [
-            'label' => Yii::$app->user->identity->username,
+            'label' => $username,
             'items'=>[
-                ['label' => Yii::t('app','memberInfo'), 'url' => ['/user/about']],
-                ['label' => Yii::t('app','settingProfile'), 'url' => ['/user/about']],
+                ['label' => Yii::t('app','memberInfo'), 'url' => Url::to(['/user/default/index','username'=>$username])],
+                ['label' => Yii::t('app','settingProfile'), 'url' => Url::to(['/user/default/index','username'=>$username])],
                 ['label' => Yii::t('app','memberLogout'), 'url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']],
             ]
         ];

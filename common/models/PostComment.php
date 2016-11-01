@@ -88,6 +88,7 @@ class PostComment extends ActiveRecord
         if (parent::beforeSave($insert)) {
             if($insert){//插入操作
                 Topic::updateAllCounters(['comment_count'=> 1],['id'=> $this->post_id]);
+                UserInfo::updateAllCounters(['comment_count'=> 1],['user_id'=> $this->user_id]);
             }
             return true;
         } else {
@@ -106,6 +107,10 @@ class PostComment extends ActiveRecord
 
     public function getUser(){
         return self::hasOne(User::className(),['id'=>'user_id']);
+    }
+
+    public function getPost(){
+        return self::hasOne(Topic::className(),['id'=>'post_id']);
     }
 
     public function afterSave($insert,$changedAttributes){

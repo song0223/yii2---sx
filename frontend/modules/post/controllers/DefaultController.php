@@ -6,6 +6,8 @@ use common\models\PostComment;
 use common\models\PostMeta;
 use common\models\PostSearch;
 use common\models\PostTag;
+use common\models\UserInfo;
+use common\widgets\MessagePrompt;
 use frontend\modules\post\models\Topic;
 use Yii;
 use yii\data\ActiveDataProvider;
@@ -105,6 +107,8 @@ class DefaultController extends Controller
         $model = new Topic();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            UserInfo::updateAllCounters(['view_count' => 1],['user_id' => $this->_user_id]);
+            MessagePrompt::setSucMsg('发布成功！');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('create', [
@@ -124,6 +128,7 @@ class DefaultController extends Controller
         $model = $this->findModel($id);
         $model->tags = explode(',',$model->tags);
         if ($model->load(Yii::$app->request->post()) && $model->save() ) {
+            MessagePrompt::setSucMsg('修改成功！');
             return $this->redirect(['view', 'id' => $model->id]);
         } else {
             return $this->render('update', [
@@ -141,7 +146,7 @@ class DefaultController extends Controller
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
-
+        MessagePrompt::setSucMsg('删除成功！');
         return $this->redirect(['index']);
     }
 

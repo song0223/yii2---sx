@@ -30,9 +30,10 @@ $this->title = '注册';
 
                     <?= $form->field($model, 'email') ?>
 
-                    <?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                    <!--?= $form->field($model, 'verifyCode')->widget(Captcha::className(), [
+                        'captchaAction' => '/site/captcha',
                         'template' => '<div class="row"><div class="col-lg-6">{input}</div><div class="col-lg-3">{image}</div></div>',
-                    ]) ?>
+                    ]) ?-->
 
                     <div class="form-group">
                         <?= Html::submitButton('注册', ['class' => 'btn btn-primary', 'name' => 'signup-button']) ?>

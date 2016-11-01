@@ -70,6 +70,9 @@ return [
         'post' => [
             'class' => 'frontend\modules\post\Module',
         ],
+        'user' => [
+            'class' => 'frontend\modules\user\Module'
+        ]
     ],
     'params' => $params,
 ];
