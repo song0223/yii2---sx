@@ -34,8 +34,8 @@ $this->title = $model->title;
                 </div>
             </div>
             <div class="avatar media-right">
-                <?= Html::a(Html::img(8, ['class' => 'media-object avatar-48']),
-                    ['/user/default/show', 'username' => 9]
+                <?= Html::a(Html::img($model->user->userAvatar, ['class' => 'media-object avatar-48']),
+                    Url::to(['/user/default/index','username'=>$model->user->username])
                 ); ?>
             </div>
         </div>

@@ -17,7 +17,9 @@ use yii\web\IdentityInterface;
  * @property string $password_reset_token
  * @property string $email
  * @property string $auth_key
+ * @property string $tagline
  * @property string $role
+ * @property integer $notification_count
  * @property integer $status
  * @property integer $created_at
  * @property integer $updated_at
@@ -79,7 +81,8 @@ class User extends ActiveRecord implements IdentityInterface
             ['role', 'default', 'value' => 10],
             ['role', 'in', 'range' => [self::USER_FRONTEND, self::USER_BACKEND, self::ROLE_SUPER_ADMIN]],
             ['email', 'email'],
-            [['username','email','password_hash','status','role'],'required']
+            [['username','email','password_hash','status','role'],'required'],
+            [['notification_count','tagline'],'safe']
         ];
     }
 
@@ -232,6 +235,7 @@ class User extends ActiveRecord implements IdentityInterface
             'email' => Yii::t('app', 'email'),
             'role' => Yii::t('app', 'Account type'),
             'status' => Yii::t('app', 'Type'),
+            'tagline' => '一句话简介',
             'updated_at' => Yii::t('app', 'Updated At'),
             'created_at' => Yii::t('app', 'Created At'),
         ];
@@ -268,5 +272,20 @@ class User extends ActiveRecord implements IdentityInterface
 
     public function getUserInfo(){
         return self::hasOne(UserInfo::className(),['user_id' => 'id']);
+    }
+
+    public function getUserAvatar($size = 'middle'){
+        if($this->avatar){
+            if($size == 'big'){
+                return $this->avatar;
+            }
+            $rule = '/big/';
+            if(preg_match($rule,$this->avatar)){
+                $msg = preg_replace($rule, $size,$this->avatar);
+                return $msg;
+            }
+
+        }
+        return '/resources/004632511.jpg';
     }
 }

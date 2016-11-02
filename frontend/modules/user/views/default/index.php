@@ -18,10 +18,10 @@ $this->title = $username;
                 <div class="panel-body">
                     <div class="media">
                         <div class="media-left media-middle">
-                            <?= Html::img('',['class' => 'media-object', 'alt' =>''])?>
+                            <?= Html::img($model->getUserAvatar('big'),['class' => 'media-object', 'alt' =>''])?>
                         </div>
                         <div class="media-body">
-                            <?= Html::tag('h2',Html::tag('strong',$username),['class' =>'mt5'])?>
+                            <?= Html::tag('h4',Html::tag('strong',$username),['class' =>'mt5'])?>
                             <p>第 <?= $model->id?> 位会员</p>
                             <div class="pull-left">
                                 <span class="label label-success role"><?= User::role_map($model->role)?></span>

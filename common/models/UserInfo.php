@@ -24,7 +24,8 @@ use Yii;
  * @property string $prev_login_ip
  * @property string $session_id
  * @property string $created_at
- * @property string $updated_at
+ * @property string $github
+ * @property string $info
  */
 class UserInfo extends ActiveRecord
 {
@@ -47,6 +48,7 @@ class UserInfo extends ActiveRecord
             [['website', 'company', 'location'], 'string', 'max' => 50],
             [['prev_login_ip'], 'string', 'max' => 32],
             [['session_id'], 'string', 'max' => 100],
+            [['github','info'],'safe']
         ];
     }
 
@@ -59,8 +61,10 @@ class UserInfo extends ActiveRecord
             'id' => 'ID',
             'user_id' => '用户id',
             'website' => '个人主页',
+            'info' => '个人简介',
             'company' => '公司',
             'location' => '城市',
+            'github' => 'GitHub帐号',
             'view_count' => '主页浏览数',
             'comment_count' => '评论数',
             'post_count' => '文章数',

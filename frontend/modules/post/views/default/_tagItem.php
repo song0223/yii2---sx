@@ -18,7 +18,11 @@ $tag = Yii::$app->request->getQueryParam('tag');
     <div class="media">
         <a class="pull-right" href="/topic/23#comment2"><span class="badge badge-reply-count"><?=$model->comment_count?></span></a>
         <div class="media-left">
-            <a href="/member/admin"><img class="media-object" src="/uploads/avatars/cache/50_Cf7h2hEvuisMMk_RRtxh4rmwtLQ0skZC.jpg" alt=""></a>
+            <?= Html::a(
+                Html::img($model->user->userAvatar,['class'=>'media-object']),
+                Url::to(['/user/default/index','username'=>$model->user->username])
+            );
+            ?>
         </div>
         <div class="media-body">
             <div class="media-heading">

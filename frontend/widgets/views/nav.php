@@ -63,7 +63,7 @@ $mid = Yii::$app->request->getQueryParam('meta_id');
             'label' => $username,
             'items'=>[
                 ['label' => Yii::t('app','memberInfo'), 'url' => Url::to(['/user/default/index','username'=>$username])],
-                ['label' => Yii::t('app','settingProfile'), 'url' => Url::to(['/user/default/index','username'=>$username])],
+                ['label' => Yii::t('app','settingProfile'), 'url' => Url::to(['/user/setting/profile'])],
                 ['label' => Yii::t('app','memberLogout'), 'url' => ['/site/logout'],'linkOptions' => ['data-method' => 'post']],
             ]
         ];

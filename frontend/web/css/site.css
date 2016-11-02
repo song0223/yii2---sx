@@ -212,3 +212,6 @@ a.desc:after {
     font-size: 13px;
     color: #aaa;
 }
+.img{
+    max-width: 100%;
+}
