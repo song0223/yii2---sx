@@ -40,7 +40,7 @@ class PostSearch extends Post
      */
     public function search($params)
     {
-        $query = Post::find()->where(['status' => 1])->orderBy(['updated_at'=>SORT_DESC]);
+        $query = Post::find()->where('status > 0')->orderBy(['updated_at'=>SORT_DESC]);
 
         // add conditions that should always apply here
 

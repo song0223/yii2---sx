@@ -9,7 +9,7 @@ use yii\helpers\Html;
                 <i class="icon-tags"></i>
                 <?php foreach (explode(',', $tags) as $key => $value){
                     echo Html::a(Html::encode($value),
-                        ['/topic/default/index', 'tag' => $value],
+                        ['/post/default/index', 'tag' => $value],
                         ['class' => 'btn btn-xs btn-primary']
                     ), ' ';} ?>
             </span>

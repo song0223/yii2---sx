@@ -2,12 +2,14 @@
 
 namespace frontend\modules\post\controllers;
 
+use common\models\User;
 use common\widgets\MessagePrompt;
 use frontend\modules\post\models\Topic;
 use Yii;
 use common\models\postComment;
 use yii\data\ActiveDataProvider;
 use common\components\Controller;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -22,6 +24,17 @@ class CommentController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),//过滤器
+                'only' => ['create','delete','update'],
+                'rules' => [
+                    [
+                        'actions' => ['create','delete','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -59,13 +72,16 @@ class CommentController extends Controller
     }
 
     /**
-     * Creates a new postComment model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
      */
     public function actionCreate($id)
     {
         $model = new postComment();
+        if (!$model->isOneself() && !User::isSuperAdmin()){
+            throw new ForbiddenHttpException('你没有权限执行此操作！');
+        }
         if ($model->load(Yii::$app->request->post())) {
             $model->user_id = Yii::$app->user->id;
             $model->post_id = $id;
@@ -84,15 +100,17 @@ class CommentController extends Controller
     }
 
     /**
-     * Updates an existing postComment model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
-
+        if (!$model->isOneself() && !User::isSuperAdmin()){
+            throw new ForbiddenHttpException('你没有权限执行此操作！');
+        }
         if ($model->load(Yii::$app->request->post())) {
             if($model->save()){
                 $topic = new Topic();
@@ -108,14 +126,17 @@ class CommentController extends Controller
     }
 
     /**
-     * Deletes an existing postComment model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
         $model = $this->findModel($id);
+        if (!$model->isOneself() && !User::isSuperAdmin()){
+            throw new ForbiddenHttpException('你没有权限执行此操作！');
+        }
         if($model::updateAll(['status'=>0],['id'=>$id])){
             MessagePrompt::setSucMsg('删除成功！');
         }

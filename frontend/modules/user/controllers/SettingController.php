@@ -10,6 +10,7 @@ use common\models\UserInfo;
 use common\widgets\MessagePrompt;
 use frontend\modules\User\models\AccountForm;
 use yii\data\ActiveDataProvider;
+use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
 use Yii;
 use yii\web\Response;
@@ -21,18 +22,38 @@ use yii\widgets\ActiveForm;
 class SettingController extends Controller
 {
 
+    /**
+     * @inheritdoc
+     */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),//过滤器
+                'only' => ['profile','account','donate','avatar'],
+                'rules' => [
+                    [
+                        'actions' => ['profile','account','donate','avatar'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
+        ];
+    }
+
     public function actions()
     {
         return [
             'crop'=>[
                 'class' => 'frontend\modules\user\controllers\CropAction',
                 'config'=>[
-                    'bigImageWidth' => '100',     //大图默认宽度
-                    'bigImageHeight' => '100',    //大图默认高度
-                    'middleImageWidth'=> '50',   //中图默认宽度
-                    'middleImageHeight'=> '50',  //中图图默认高度
-                    'smallImageWidth' => '24',    //小图默认宽度
-                    'smallImageHeight' => '24',   //小图默认高度
+                    'bigImageWidth' => '200',     //大图默认宽度
+                    'bigImageHeight' => '200',    //大图默认高度
+                    'middleImageWidth'=> '100',   //中图默认宽度
+                    'middleImageHeight'=> '100',  //中图图默认高度
+                    'smallImageWidth' => '50',    //小图默认宽度
+                    'smallImageHeight' => '50',   //小图默认高度
                     //头像上传目录（注：目录前不能加"/"）
                     'uploadPath' => 'uploads/avatar',
                 ]

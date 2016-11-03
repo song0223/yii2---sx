@@ -34,7 +34,7 @@ $this->title = $model->title;
                 </div>
             </div>
             <div class="avatar media-right">
-                <?= Html::a(Html::img($model->user->userAvatar, ['class' => 'media-object avatar-48']),
+                <?= Html::a(Html::img($model->user->getuserAvatar('small'), ['class' => 'media-object avatar-48']),
                     Url::to(['/user/default/index','username'=>$model->user->username])
                 ); ?>
             </div>
@@ -128,18 +128,16 @@ $this->title = $model->title;
                             Html::tag('i', '', ['class' => 'fa fa-pencil']) . ' 修改',
                             ['/post/default/update', 'id' => $model->id]
                         ) ?>
-                        <?php if($model->comment_count == 0): ?>
-                            <?= Html::a(
-                                Html::tag('i', '', ['class' => 'fa fa-trash']) . ' 删除',
-                                ['/post/default/delete', 'id' => $model->id],
-                                [
-                                    'data' => [
-                                        'confirm' => "您确认要删除文章「{$model->title}」吗？",
-                                        'method' => 'post',
-                                    ],
-                                ]
-                            ) ?>
-                        <?php endif?>
+                        <?= Html::a(
+                            Html::tag('i', '', ['class' => 'fa fa-trash']) . ' 删除',
+                            ['/post/default/delete', 'id' => $model->id],
+                            [
+                                'data' => [
+                                    'confirm' => "您确认要删除文章「{$model->title}」吗？",
+                                    'method' => 'post',
+                                ],
+                            ]
+                        ) ?>
                     </span>
             <?php endif ?>
         </div>

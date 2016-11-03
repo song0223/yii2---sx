@@ -18,7 +18,7 @@ $this->title = $username;
                 <div class="panel-body">
                     <div class="media">
                         <div class="media-left media-middle">
-                            <?= Html::img($model->getUserAvatar('big'),['class' => 'media-object', 'alt' =>''])?>
+                            <?= Html::img($model->getUserAvatar(),['class' => 'media-object', 'alt' =>''])?>
                         </div>
                         <div class="media-body">
                             <?= Html::tag('h4',Html::tag('strong',$username),['class' =>'mt5'])?>

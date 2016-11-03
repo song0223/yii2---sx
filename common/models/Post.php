@@ -13,7 +13,7 @@ use yii\db\ActiveRecord;
  * This is the model class for table "{{%post}}".
  *
  * @property integer $id
- * @property integer $type
+ * @property string $type
  * @property string $post_meta_id
  * @property string $user_id
  * @property string $title
@@ -62,8 +62,6 @@ class Post extends \common\components\ActiveRecord
      * 草稿
      */
     const STATUS_DRAFT = 4;
-
-    public $type;
 
     public static function statusMap($key = null){
         $items = [

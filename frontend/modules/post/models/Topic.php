@@ -52,10 +52,10 @@ class Topic extends Post
     {
         if (parent::beforeSave($insert)) {
             if($insert){//插入操作
-                $this->type = self::TYPE;
                 $this->author = Yii::$app->user->identity['username'];
                 $this->last_comment_name = $this->author;
                 $this->last_comment_time = time();
+                $this->type = self::TYPE;
                 $this->excerpt = SxHelps::truncate_utf8_string($this->content,200);
             }
             return true;

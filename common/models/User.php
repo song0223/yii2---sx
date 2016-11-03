@@ -286,6 +286,6 @@ class User extends ActiveRecord implements IdentityInterface
             }
 
         }
-        return '/resources/004632511.jpg';
+        return '/resources/004632511'.$size.'.jpg';
     }
 }

@@ -19,7 +19,7 @@ $index += +1 + $widget->dataProvider->pagination->page * $widget->dataProvider->
     <?php else: ?>
     <div class="avatar pull-left">
         <?=
-            Html::a(Html::img($model->user->userAvatar),Url::to(['/user/default/index','username'=>$model->user->username]));
+            Html::a(Html::img($model->user->getuserAvatar('small')),Url::to(['/user/default/index','username'=>$model->user->username]));
         ?>
     </div>
     <div class="infos" id="comment<?= $index ?>">

@@ -6,15 +6,18 @@ use common\models\PostComment;
 use common\models\PostMeta;
 use common\models\PostSearch;
 use common\models\PostTag;
+use common\models\User;
 use common\models\UserInfo;
 use common\widgets\MessagePrompt;
 use frontend\modules\post\models\Topic;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\data\ArrayDataProvider;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Json;
 use common\components\Controller;
+use yii\web\ForbiddenHttpException;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
@@ -29,6 +32,17 @@ class DefaultController extends Controller
     public function behaviors()
     {
         return [
+            'access' => [
+                'class' => AccessControl::className(),//过滤器
+                'only' => ['create','delete','update'],
+                'rules' => [
+                    [
+                        'actions' => ['create','delete','update'],
+                        'allow' => true,
+                        'roles' => ['@'],
+                    ],
+                ],
+            ],
             'verbs' => [
                 'class' => VerbFilter::className(),
                 'actions' => [
@@ -118,14 +132,17 @@ class DefaultController extends Controller
     }
 
     /**
-     * Updates an existing Post model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        if (!$model->isOneself() && !User::isSuperAdmin()){
+            throw new ForbiddenHttpException('你没有权限执行此操作！');
+        }
         $model->tags = explode(',',$model->tags);
         if ($model->load(Yii::$app->request->post()) && $model->save() ) {
             MessagePrompt::setSucMsg('修改成功！');
@@ -138,16 +155,21 @@ class DefaultController extends Controller
     }
 
     /**
-     * Deletes an existing Post model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
+     * @param $id
+     * @return \yii\web\Response
+     * @throws ForbiddenHttpException
+     * @throws NotFoundHttpException
      */
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
-        MessagePrompt::setSucMsg('删除成功！');
-        return $this->redirect(['index']);
+        $model = $this->findModel($id);
+        if (!$model->isOneself() && !User::isSuperAdmin()){
+            throw new ForbiddenHttpException('你没有权限执行此操作！');
+        }
+        if($model->updateAll(['status'=>Topic::STATUS_DELETED], ['id'=> $id])){
+            MessagePrompt::setSucMsg('删除成功！');
+            return $this->redirect(['index']);
+        }
     }
 
     /**
