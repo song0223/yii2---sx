@@ -6,7 +6,7 @@ use common\models\User;
 use common\widgets\MessagePrompt;
 use frontend\modules\post\models\Topic;
 use Yii;
-use common\models\postComment;
+use common\models\PostComment;
 use yii\data\ActiveDataProvider;
 use common\components\Controller;
 use yii\filters\AccessControl;

@@ -3,7 +3,7 @@
 namespace backend\modules\post\controllers;
 
 use Yii;
-use common\models\postComment;
+use common\models\PostComment;
 use backend\modules\post\models\search\CommentSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;

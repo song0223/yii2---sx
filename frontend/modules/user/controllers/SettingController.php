@@ -8,7 +8,7 @@ use common\components\Controller;
 use common\models\UserDonate;
 use common\models\UserInfo;
 use common\widgets\MessagePrompt;
-use frontend\modules\User\models\AccountForm;
+use frontend\modules\user\models\AccountForm;
 use yii\data\ActiveDataProvider;
 use yii\filters\AccessControl;
 use yii\web\NotFoundHttpException;
